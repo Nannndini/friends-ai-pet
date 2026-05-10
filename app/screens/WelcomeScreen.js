@@ -41,12 +41,12 @@ export default function WelcomeScreen({ navigation }) {
             )
           ))}
         </View>
-        <Text style={[styles.subtitle]} className={Platform.OS === 'web' ? 'gradient-text' : ''}>
+        <Text style={[styles.subtitle]}>
           Raise your AI companion{'\n'}together with a friend
         </Text>
 
         <TouchableOpacity
-          className={Platform.OS === 'web' ? 'star-border glow-hover' : ''}
+          className={Platform.OS === 'web' ? 'glow-hover' : ''}
           style={styles.button}
           onPress={() => navigation.navigate('Auth', { mode: 'signup' })}
         >
@@ -54,7 +54,7 @@ export default function WelcomeScreen({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-          className={Platform.OS === 'web' ? 'star-border glow-hover' : ''}
+          className={Platform.OS === 'web' ? 'glow-hover' : ''}
           style={styles.buttonOutline}
           onPress={() => navigation.navigate('Auth', { mode: 'login' })}
         >
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 48, fontWeight: 'bold', color: '#2d1b2e', marginBottom: 10 },
   subtitle: { fontSize: 18, color: '#8b5a6b', textAlign: 'center', marginBottom: 60, lineHeight: 28 },
   button: {
-    backgroundColor: 'transparent',
+    backgroundColor: '#ff6b8a',
     paddingHorizontal: 50,
     paddingVertical: 16,
     borderRadius: 30,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   buttonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
   buttonOutline: {
     backgroundColor: 'transparent',
-    borderWidth: Platform.OS === 'web' ? 0 : 2,
+    borderWidth: 2,
     borderColor: '#ff6b8a',
     paddingHorizontal: 50,
     paddingVertical: 16,
