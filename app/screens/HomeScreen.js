@@ -65,7 +65,7 @@ export default function HomeScreen({ navigation }) {
     const { data } = await supabase
       .from('pets')
       .select('*')
-      .or(`owner_id.eq.${user.id},coparent_id.eq.${user.id}`)
+      .eq('owner_id', user.id)
       .single();
     if (!data) navigation.replace('CreatePet');
     else { setPet(data); setLoading(false); }

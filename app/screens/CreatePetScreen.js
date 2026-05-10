@@ -14,7 +14,7 @@ const SPECIES = [
 
 const PERSONALITIES = ['curious and playful', 'shy and sweet', 'energetic and bold', 'calm and wise'];
 
-export default function CreatePetScreen({ navigation }) {
+export default function CreatePetScreen({ navigation, onPetCreated }) {
   const [name, setName] = useState('');
   const [species, setSpecies] = useState(SPECIES[0]);
   const [personality, setPersonality] = useState(PERSONALITIES[0]);
@@ -36,9 +36,13 @@ export default function CreatePetScreen({ navigation }) {
       growth_stage: 1,
       interaction_count: 0,
     });
-    if (error) Alert.alert('Error', error.message);
-    else navigation.replace('Home');
-    setLoading(false);
+    if (error) {
+      Alert.alert('Error', error.message);
+      setLoading(false);
+    } else {
+      if (onPetCreated) onPetCreated();
+      navigation.replace('Home');
+    }
   }
 
   return (
