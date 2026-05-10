@@ -65,7 +65,7 @@ export default function HomeScreen({ navigation }) {
     const { data } = await supabase
       .from('pets')
       .select('*')
-      .eq('owner_id', user.id)
+      .or(`owner_id.eq.${user.id},coparent_id.eq.${user.id}`)
       .single();
     if (!data) navigation.replace('CreatePet');
     else { setPet(data); setLoading(false); }
@@ -81,7 +81,13 @@ export default function HomeScreen({ navigation }) {
     if (action === 'play') { updates.happiness = Math.min(100, pet.happiness + 20); updates.energy = Math.max(0, pet.energy - 10); }
     if (action === 'sleep') updates.energy = Math.min(100, pet.energy + 30);
     updates.interaction_count = pet.interaction_count + 1;
-    updates.growth_stage = Math.min(5, Math.floor(updates.interaction_count / 10));
+    const count = updates.interaction_count;
+    if (count < 5) updates.growth_stage = 0;
+    else if (count < 10) updates.growth_stage = 1;
+    else if (count < 20) updates.growth_stage = 2;
+    else if (count < 30) updates.growth_stage = 3;
+    else if (count < 50) updates.growth_stage = 4;
+    else updates.growth_stage = 5;
     updates.mood = updates.happiness > 70 ? 'happy' : updates.happiness > 40 ? 'neutral' : 'sad';
 
     const response = await getPetResponse({ ...pet, ...updates }, action);

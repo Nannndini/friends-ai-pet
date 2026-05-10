@@ -21,7 +21,7 @@ export default function App() {
     const { data } = await supabase
       .from('pets')
       .select('id')
-     .eq('owner_id', userId)
+      .or(`owner_id.eq.${userId},coparent_id.eq.${userId}`)
       .maybeSingle();
     setHasPet(!!data);
     setLoading(false);
