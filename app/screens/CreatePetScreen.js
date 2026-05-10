@@ -58,7 +58,7 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
   }
 
   return (
-    <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+    <LinearGradient colors={['#1a0a0f', '#2d1420', '#3f1c2d']} style={styles.container}>
       <PixelTransition />
       {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.2}} />}
       <ScrollView contentContainerStyle={styles.content}>
@@ -113,19 +113,19 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   content: { padding: 30, paddingTop: 60 },
   title: { fontSize: 28, fontWeight: 'bold', color: '#fff', marginBottom: 30, textAlign: 'center' },
-  label: { color: '#a0a0c0', fontSize: 14, marginBottom: 10, marginTop: 20 },
+  label: { color: '#fecdd3', fontSize: 14, marginBottom: 10, marginTop: 20 },
   input: {
-    backgroundColor: '#ffffff15',
+    backgroundColor: 'rgba(253,164,175,0.05)',
     borderRadius: 12,
     padding: 16,
     color: '#fff',
     fontSize: 16,
     borderWidth: 1,
-    borderColor: '#ffffff20',
+    borderColor: 'rgba(244,114,182,0.3)',
   },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   speciesCard: {
-    backgroundColor: '#13131a',
+    backgroundColor: '#2d1420',
     borderRadius: 12,
     padding: 15,
     alignItems: 'center',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   speciesEmoji: { fontSize: 32 },
   speciesName: { color: '#fff', fontSize: 12, marginTop: 5 },
   personalityCard: {
-    backgroundColor: '#13131a',
+    backgroundColor: '#2d1420',
     borderRadius: 12,
     padding: 14,
     marginBottom: 8,
@@ -144,9 +144,9 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   personalityText: { color: '#fff', fontSize: 14 },
-  selected: { borderColor: '#7c3aed' },
+  selected: { borderColor: '#f472b6' },
   button: {
-    backgroundColor: '#7c3aed',
+    backgroundColor: '#e11d48',
     padding: 16,
     borderRadius: 30,
     alignItems: 'center',

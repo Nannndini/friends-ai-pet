@@ -4,7 +4,7 @@ import PixelTransition from '../components/PixelTransition';
 
 export default function WelcomeScreen({ navigation }) {
   return (
-    <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+    <LinearGradient colors={['#1a0a0f', '#2d1420', '#3f1c2d']} style={styles.container}>
       <PixelTransition />
       {Platform.OS === 'web' && (
         <div className="cubes-container">
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   content: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 30 },
   emoji: { fontSize: 80, marginBottom: 20 },
   title: { fontSize: 48, fontWeight: 'bold', color: '#fff', marginBottom: 10 },
-  subtitle: { fontSize: 18, color: '#a0a0c0', textAlign: 'center', marginBottom: 60, lineHeight: 28 },
+  subtitle: { fontSize: 18, color: '#fecdd3', textAlign: 'center', marginBottom: 60, lineHeight: 28 },
   button: {
     backgroundColor: 'transparent',
     paddingHorizontal: 50,
@@ -84,12 +84,12 @@ const styles = StyleSheet.create({
   buttonOutline: {
     backgroundColor: 'transparent',
     borderWidth: Platform.OS === 'web' ? 0 : 2,
-    borderColor: '#7c3aed',
+    borderColor: '#f472b6',
     paddingHorizontal: 50,
     paddingVertical: 16,
     borderRadius: 30,
     width: '100%',
     alignItems: 'center',
   },
-  buttonOutlineText: { color: '#a855f7', fontSize: 18, fontWeight: 'bold' },
+  buttonOutlineText: { color: '#fda4af', fontSize: 18, fontWeight: 'bold' },
 });

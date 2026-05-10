@@ -36,7 +36,7 @@ export default function AuthScreen({ navigation, route }) {
   }
 
   return (
-    <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+    <LinearGradient colors={['#1a0a0f', '#2d1420', '#3f1c2d']} style={styles.container}>
       <PixelTransition />
       <View style={styles.content}>
         <Text style={styles.title}>{mode === 'signup' ? 'Create Account' : 'Welcome Back'}</Text>
@@ -75,17 +75,17 @@ const styles = StyleSheet.create({
   content: { flex: 1, justifyContent: 'center', padding: 30 },
   title: { fontSize: 32, fontWeight: 'bold', color: '#fff', marginBottom: 40, textAlign: 'center' },
   input: {
-    backgroundColor: '#ffffff15',
+    backgroundColor: 'rgba(253,164,175,0.05)',
     borderRadius: 12,
     padding: 16,
     color: '#fff',
     fontSize: 16,
     marginBottom: 15,
     borderWidth: 1,
-    borderColor: '#ffffff20',
+    borderColor: 'rgba(244,114,182,0.2)',
   },
   button: {
-    backgroundColor: '#7c3aed',
+    backgroundColor: '#e11d48',
     padding: 16,
     borderRadius: 30,
     alignItems: 'center',
@@ -93,5 +93,5 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
-  switchText: { color: '#a0a0c0', textAlign: 'center', fontSize: 14 },
+  switchText: { color: '#fecdd3', textAlign: 'center', fontSize: 14 },
 });

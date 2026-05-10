@@ -11,13 +11,13 @@ export default function WebStyles() {
         </filter>
       </svg>
       <style type="text/css">{`
-      /* Aurora Background (Purple/Pink Waves) */
+      /* Aurora Background (Pink/Rose Waves) */
       @keyframes aurora {
         0% { background-position: 50% 50%, 50% 50%; }
         100% { background-position: 350% 50%, 350% 50%; }
       }
       .aurora-bg {
-        background-image: repeating-linear-gradient(100deg, #0a0a0f 0%, #1a0b2e 20%, #2e0854 40%, #0a0a0f 60%);
+        background-image: repeating-linear-gradient(100deg, #1a0a0f 0%, #2d1420 20%, #3f1c2d 40%, #1a0a0f 60%);
         background-size: 200vw 200vh;
         animation: aurora 20s linear infinite;
       }
@@ -35,7 +35,7 @@ export default function WebStyles() {
 
       /* Gradient Text */
       .gradient-text {
-        background: linear-gradient(90deg, #a855f7, #ec4899);
+        background: linear-gradient(90deg, #fda4af, #fb7185);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -51,7 +51,7 @@ export default function WebStyles() {
         position: relative;
         overflow: hidden;
         border-radius: 30px;
-        background: #13131a;
+        background: #2d1420;
         z-index: 1;
         border: none !important;
       }
@@ -59,7 +59,7 @@ export default function WebStyles() {
         content: '';
         position: absolute;
         top: -50%; left: -50%; width: 200%; height: 200%;
-        background: conic-gradient(transparent, transparent, transparent, #ec4899, #7c3aed, transparent);
+        background: conic-gradient(transparent, transparent, transparent, #fb7185, #f472b6, transparent);
         animation: starBorderRotate 4s linear infinite;
         z-index: -1;
       }
@@ -67,7 +67,7 @@ export default function WebStyles() {
         content: '';
         position: absolute;
         top: 2px; left: 2px; right: 2px; bottom: 2px;
-        background: #0a0a0f;
+        background: #1a0a0f;
         border-radius: 28px;
         z-index: -1;
       }
@@ -76,14 +76,14 @@ export default function WebStyles() {
       .electric-border {
         position: relative;
         border-radius: 20px;
-        background: #13131a;
+        background: #2d1420;
         z-index: 1;
       }
       .electric-border::before {
         content: '';
         position: absolute;
         top: -3px; left: -3px; right: -3px; bottom: -3px;
-        background: linear-gradient(45deg, #7c3aed, #a855f7, #ec4899, #7c3aed);
+        background: linear-gradient(45deg, #f472b6, #fda4af, #fb7185, #f472b6);
         background-size: 300%;
         border-radius: 23px;
         z-index: -1;
@@ -100,7 +100,7 @@ export default function WebStyles() {
       .glow-hover { transition: all 0.3s ease; }
       .glow-hover:hover {
         transform: scale(1.05);
-        box-shadow: 0 0 15px rgba(124, 58, 237, 0.6);
+        box-shadow: 0 0 15px rgba(244, 114, 182, 0.6);
       }
 
       /* Sparkles */
@@ -113,7 +113,7 @@ export default function WebStyles() {
         position: absolute;
         animation: floatUpFade 2s ease-in infinite;
         pointer-events: none;
-        color: #a855f7;
+        color: #fda4af;
       }
 
       /* Stats Smooth */
@@ -134,7 +134,7 @@ export default function WebStyles() {
         transform: translateX(-50%);
         border-width: 10px 10px 0;
         border-style: solid;
-        border-color: rgba(124, 58, 237, 0.3) transparent transparent transparent;
+        border-color: rgba(244, 114, 182, 0.3) transparent transparent transparent;
         display: block;
         width: 0;
       }
@@ -145,7 +145,7 @@ export default function WebStyles() {
         100% { background-position: 200% center; }
       }
       .shimmer-text {
-        background: linear-gradient(90deg, #fff 0%, #a855f7 50%, #fff 100%);
+        background: linear-gradient(90deg, #fff 0%, #fda4af 50%, #fff 100%);
         background-size: 200% auto;
         color: transparent !important;
         -webkit-background-clip: text;
@@ -155,15 +155,15 @@ export default function WebStyles() {
 
       /* Glass Morphism */
       .glass-morphism {
-        background: rgba(124, 58, 237, 0.1) !important;
+        background: rgba(244, 114, 182, 0.1) !important;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(124, 58, 237, 0.2) !important;
+        border: 1px solid rgba(244, 114, 182, 0.2) !important;
       }
 
       /* Gradient Bubble */
       .gradient-bubble {
-        background: linear-gradient(135deg, #7c3aed, #ec4899) !important;
+        background: linear-gradient(135deg, #e11d48, #f472b6) !important;
       }
 
       /* Holographic Shimmer */
@@ -179,7 +179,7 @@ export default function WebStyles() {
         content: '';
         position: absolute;
         top: -50%; left: -50%; width: 200%; height: 200%;
-        background: linear-gradient(45deg, transparent 40%, rgba(236, 72, 153, 0.2) 45%, rgba(124, 58, 237, 0.4) 50%, rgba(236, 72, 153, 0.2) 55%, transparent 60%);
+        background: linear-gradient(45deg, transparent 40%, rgba(251, 113, 133, 0.2) 45%, rgba(244, 114, 182, 0.4) 50%, rgba(251, 113, 133, 0.2) 55%, transparent 60%);
         background-size: 200% 200%;
         opacity: 0;
         transition: opacity 0.3s;
@@ -229,19 +229,19 @@ export default function WebStyles() {
       .species-card-hover { transition: all 0.2s ease; }
       .species-card-hover:hover {
         transform: scale(1.05);
-        background: rgba(124, 58, 237, 0.15);
+        background: rgba(244, 114, 182, 0.15);
       }
       .species-selected-glow {
-        box-shadow: 0 0 20px rgba(124, 58, 237, 0.6) !important;
-        border-color: #7c3aed !important;
-        background: rgba(124, 58, 237, 0.2) !important;
+        box-shadow: 0 0 20px rgba(244, 114, 182, 0.6) !important;
+        border-color: #f472b6 !important;
+        background: rgba(244, 114, 182, 0.2) !important;
       }
 
       /* Ripple Send */
       .ripple-btn {
         position: relative;
         overflow: hidden;
-        box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+        box-shadow: 0 0 15px rgba(244, 114, 182, 0.4);
       }
       .ripple-btn::after {
         content: "";
@@ -274,7 +274,7 @@ export default function WebStyles() {
         top: 20px;
         bottom: 20px;
         width: 2px;
-        background: linear-gradient(to bottom, #7c3aed, #ec4899);
+        background: linear-gradient(to bottom, #f472b6, #fb7185);
         opacity: 0.5;
       }
       .timeline-dot {
@@ -284,15 +284,15 @@ export default function WebStyles() {
         width: 12px;
         height: 12px;
         border-radius: 50%;
-        background: #0a0a0f;
-        border: 2px solid #7c3aed;
+        background: #1a0a0f;
+        border: 2px solid #f472b6;
         z-index: 2;
         transition: transform 0.3s;
       }
       .tilt-hover:hover .timeline-dot {
         transform: scale(1.5);
-        background: #ec4899;
-        border-color: #ec4899;
+        background: #fb7185;
+        border-color: #fb7185;
       }
 
       /* =========================================
@@ -315,8 +315,8 @@ export default function WebStyles() {
       }
       .cube div {
         position: absolute; width: 100%; height: 100%;
-        background: rgba(124, 58, 237, 0.1);
-        border: 1px solid rgba(236, 72, 153, 0.3);
+        background: rgba(244, 114, 182, 0.1);
+        border: 1px solid rgba(251, 113, 133, 0.3);
       }
       .cube .front  { transform: translateZ(30px); }
       .cube .back   { transform: rotateY(180deg) translateZ(30px); }
@@ -347,8 +347,8 @@ export default function WebStyles() {
       }
       .letter-glitch:hover {
         animation: glitchAnim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-        color: #ec4899;
-        text-shadow: 2px 0 #7c3aed, -2px 0 #3b82f6;
+        color: #fb7185;
+        text-shadow: 2px 0 #f472b6, -2px 0 #e11d48;
       }
 
       /* 3. Magic Rings */
@@ -364,11 +364,11 @@ export default function WebStyles() {
         position: absolute;
         width: 100%; height: 100%;
         border-radius: 50%;
-        border: 2px solid rgba(124, 58, 237, 0.5);
-        border-top: 2px solid #ec4899;
+        border: 2px solid rgba(244, 114, 182, 0.5);
+        border-top: 2px solid #fb7185;
       }
       .ring-1 { animation: spinRingX 4s linear infinite; }
-      .ring-2 { animation: spinRingY 5s linear infinite; border-top-color: #3b82f6; }
+      .ring-2 { animation: spinRingY 5s linear infinite; border-top-color: #e11d48; }
       .ring-3 { animation: spinRingZ 6s linear infinite; width: 120%; height: 120%; top: -10%; left: -10%; }
       
       @keyframes spinRingX { 100% { transform: rotateX(360deg) rotateY(180deg); } }
@@ -395,7 +395,7 @@ export default function WebStyles() {
         z-index: 9999;
       }
       .pixel-cell {
-        background: #0a0a0f;
+        background: #1a0a0f;
         transform-origin: center;
         animation: pixelShrink 0.8s cubic-bezier(0.87, 0, 0.13, 1) forwards;
       }

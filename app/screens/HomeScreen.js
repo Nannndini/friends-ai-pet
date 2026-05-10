@@ -193,14 +193,14 @@ export default function HomeScreen({ navigation }) {
   const growthBadge = getGrowthBadge(pet.growth_stage || 0);
 
   const MOOD_COLORS = {
-    happy: '#7c3aed',
-    sad: '#3b82f6',
-    neutral: '#ec4899',
+    happy: '#f472b6',
+    sad: '#fda4af',
+    neutral: '#fb7185',
   };
-  const moodColor = MOOD_COLORS[pet.mood] || '#7c3aed';
+  const moodColor = MOOD_COLORS[pet.mood] || '#f472b6';
 
   return (
-    <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+    <LinearGradient colors={['#1a0a0f', '#2d1420', '#3f1c2d']} style={styles.container}>
       <PixelTransition />
       <ScrollView contentContainerStyle={styles.content}>
         {/* Header */}
@@ -253,9 +253,9 @@ export default function HomeScreen({ navigation }) {
 
         {/* Stats */}
         <View style={styles.statsCard}>
-          <StatBar label="🍖 Hunger" value={pet.hunger} color="#ec4899" />
-          <StatBar label="😊 Happy" value={pet.happiness} color="#7c3aed" />
-          <StatBar label="⚡ Energy" value={pet.energy} color="#a855f7" />
+          <StatBar label="🍖 Hunger" value={pet.hunger} color="#fb7185" />
+          <StatBar label="😊 Happy" value={pet.happiness} color="#f472b6" />
+          <StatBar label="⚡ Energy" value={pet.energy} color="#fda4af" />
         </View>
 
         {/* Actions */}
@@ -310,8 +310,8 @@ export default function HomeScreen({ navigation }) {
             {shareLink ? (
               <View>
                 <Text style={styles.coparentTitle}>🎉 Friend Added!</Text>
-                <Text style={{color: '#a0a0c0', marginBottom: 15, lineHeight: 22}}>
-                  Your friend has been added! Share this link with them: <Text style={{color: '#a855f7'}}>{shareLink}</Text>
+                <Text style={{color: '#fecdd3', marginBottom: 15, lineHeight: 22}}>
+                  Your friend has been added! Share this link with them: <Text style={{color: '#f472b6'}}>{shareLink}</Text>
                   {'\n\n'}Tell them to sign up with <Text style={{color: '#fff', fontWeight: 'bold'}}>{coparentEmail}</Text> and they'll see your pet!
                 </Text>
                 <TouchableOpacity style={styles.inviteBtn} onPress={() => { setShowCoparent(false); setShareLink(''); setCoparentEmail(''); }}>
@@ -356,39 +356,39 @@ const styles = StyleSheet.create({
   loadingText: { color: '#fff', textAlign: 'center', marginTop: 100, fontSize: 18 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
   headerTitle: { fontSize: 24, fontWeight: 'bold', color: '#fff' },
-  signOut: { color: '#ec4899', fontSize: 14 },
-  petCard: { backgroundColor: '#13131a', borderRadius: 20, padding: 30, alignItems: 'center', marginBottom: 15 },
+  signOut: { color: '#fb7185', fontSize: 14 },
+  petCard: { backgroundColor: '#2d1420', borderRadius: 20, padding: 30, alignItems: 'center', marginBottom: 15 },
   petEmojiContainer: { position: 'relative' },
-  growthBadgeContainer: { position: 'absolute', bottom: -10, right: -10, backgroundColor: '#0a0a0f', borderRadius: 15, padding: 4, borderWidth: 1, borderColor: 'rgba(124, 58, 237, 0.4)' },
+  growthBadgeContainer: { position: 'absolute', bottom: -10, right: -10, backgroundColor: '#1a0a0f', borderRadius: 15, padding: 4, borderWidth: 1, borderColor: 'rgba(244, 114, 182, 0.4)' },
   growthBadgeText: { fontSize: 24 },
   petEmoji: { fontSize: 80 },
   petName: { fontSize: 28, fontWeight: 'bold', color: '#fff', marginTop: 10 },
-  petMeta: { color: '#a0a0c0', fontSize: 14, marginTop: 5 },
-  petPersonality: { color: '#a855f7', fontSize: 13, marginTop: 8 },
-  responseCard: { backgroundColor: 'rgba(124, 58, 237, 0.1)', borderRadius: 15, padding: 15, marginBottom: 15, borderWidth: 1, borderColor: 'rgba(124, 58, 237, 0.3)' },
+  petMeta: { color: '#fecdd3', fontSize: 14, marginTop: 5 },
+  petPersonality: { color: '#fda4af', fontSize: 13, marginTop: 8 },
+  responseCard: { backgroundColor: 'rgba(244, 114, 182, 0.1)', borderRadius: 15, padding: 15, marginBottom: 15, borderWidth: 1, borderColor: 'rgba(244, 114, 182, 0.3)' },
   responseText: { color: '#fff', fontSize: 15, fontStyle: 'italic', textAlign: 'center' },
-  statsCard: { backgroundColor: '#13131a', borderRadius: 15, padding: 15, marginBottom: 15 },
+  statsCard: { backgroundColor: '#2d1420', borderRadius: 15, padding: 15, marginBottom: 15 },
   statRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
-  statLabel: { color: '#a0a0c0', fontSize: 13, width: 80 },
-  statBarBg: { flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 10, height: 8, marginHorizontal: 10 },
+  statLabel: { color: '#fecdd3', fontSize: 13, width: 80 },
+  statBarBg: { flex: 1, backgroundColor: 'rgba(253,164,175,0.05)', borderRadius: 10, height: 8, marginHorizontal: 10 },
   statBarFill: { height: 8, borderRadius: 10 },
   statValue: { color: '#fff', fontSize: 13, width: 30, textAlign: 'right' },
   actions: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 },
-  actionBtn: { backgroundColor: '#13131a', borderRadius: 15, padding: 15, alignItems: 'center', flex: 1, marginHorizontal: 4 },
+  actionBtn: { backgroundColor: '#2d1420', borderRadius: 15, padding: 15, alignItems: 'center', flex: 1, marginHorizontal: 4 },
   actionEmoji: { fontSize: 28 },
   actionText: { color: '#fff', fontSize: 12, marginTop: 5 },
   navRow: { flexDirection: 'row', gap: 10, marginBottom: 15 },
-  navBtn: { flex: 1, backgroundColor: '#13131a', borderRadius: 12, padding: 14, alignItems: 'center' },
+  navBtn: { flex: 1, backgroundColor: '#2d1420', borderRadius: 12, padding: 14, alignItems: 'center' },
   navBtnText: { color: '#fff', fontSize: 14, fontWeight: '600' },
-  coparentCard: { backgroundColor: '#13131a', borderRadius: 15, padding: 20, marginBottom: 15 },
+  coparentCard: { backgroundColor: '#2d1420', borderRadius: 15, padding: 20, marginBottom: 15 },
   coparentTitle: { color: '#fff', fontSize: 16, fontWeight: 'bold', marginBottom: 12 },
-  input: { backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 10, padding: 12, color: '#fff', marginBottom: 10, borderWidth: 1, borderColor: 'rgba(124, 58, 237, 0.3)' },
-  inviteBtn: { backgroundColor: '#7c3aed', borderRadius: 10, padding: 12, alignItems: 'center' },
+  input: { backgroundColor: 'rgba(253,164,175,0.05)', borderRadius: 10, padding: 12, color: '#fff', marginBottom: 10, borderWidth: 1, borderColor: 'rgba(244, 114, 182, 0.3)' },
+  inviteBtn: { backgroundColor: '#e11d48', borderRadius: 10, padding: 12, alignItems: 'center' },
   inviteBtnText: { color: '#fff', fontWeight: 'bold' },
-  interactions: { color: '#a0a0c0', textAlign: 'center', fontSize: 13, marginBottom: 30 },
+  interactions: { color: '#fecdd3', textAlign: 'center', fontSize: 13, marginBottom: 30 },
   levelUpOverlay: {
     position: 'absolute', top: '40%', left: 20, right: 20,
-    backgroundColor: 'rgba(124, 58, 237, 0.9)', padding: 20, borderRadius: 20,
+    backgroundColor: 'rgba(244, 114, 182, 0.9)', padding: 20, borderRadius: 20,
     alignItems: 'center', justifyContent: 'center', zIndex: 100,
     elevation: 10, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 5
   },
