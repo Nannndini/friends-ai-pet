@@ -11,12 +11,25 @@ export default function AuthScreen({ navigation, route }) {
 
   async function handleAuth() {
     setLoading(true);
+    let authError = null;
     if (mode === 'signup') {
       const { error } = await supabase.auth.signUp({ email, password });
-      if (error) Alert.alert('Error', error.message);
+      authError = error;
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) Alert.alert('Error', error.message);
+      authError = error;
+    }
+
+    if (authError) {
+      Alert.alert('Error', authError.message);
+    } else {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        await supabase.from('profiles').upsert({ 
+          id: user.id, 
+          email: email.toLowerCase().trim() 
+        });
+      }
     }
     setLoading(false);
   }

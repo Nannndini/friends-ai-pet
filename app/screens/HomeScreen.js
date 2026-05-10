@@ -106,15 +106,28 @@ export default function HomeScreen({ navigation }) {
   }
 
   async function addCoparent() {
-    const { data: userData } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .select('id')
-      .eq('email', coparentEmail)
-      .single();
-    if (!userData) return Alert.alert('User not found');
-    await supabase.from('pets').update({ coparent_id: userData.id }).eq('id', pet.id);
-    Alert.alert('✅ Co-parent added!');
-    setShowCoparent(false);
+      .eq('email', coparentEmail.toLowerCase().trim())
+      .maybeSingle();
+
+    console.log('coparent search result:', data, error);
+
+    if (!data) return Alert.alert('❌ User not found', 'Make sure they have an account.');
+
+    const { error: updateError } = await supabase
+      .from('pets')
+      .update({ coparent_id: data.id })
+      .eq('id', pet.id);
+
+    if (updateError) {
+      console.log('coparent update error:', updateError);
+      Alert.alert('Error', updateError.message);
+    } else {
+      Alert.alert('✅ Co-parent added!', 'They can now log in and see your pet.');
+      setShowCoparent(false);
+    }
   }
 
   async function signOut() {
