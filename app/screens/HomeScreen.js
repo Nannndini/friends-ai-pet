@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput, Animated } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput, Animated, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 import { getPetResponse } from '../lib/groq';
@@ -11,7 +11,10 @@ function StatBar({ label, value, color }) {
     <View style={styles.statRow}>
       <Text style={styles.statLabel}>{label}</Text>
       <View style={styles.statBarBg}>
-        <View style={[styles.statBarFill, { width: `${value}%`, backgroundColor: color }]} />
+        <View 
+          className={Platform.OS === 'web' ? 'stat-smooth' : ''}
+          style={[styles.statBarFill, { width: `${value}%`, backgroundColor: color }]} 
+        />
       </View>
       <Text style={styles.statValue}>{value}</Text>
     </View>
@@ -164,8 +167,18 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         {/* Pet Display */}
-        <View style={[styles.petCard, { shadowColor: moodColor, shadowOpacity: 0.8, shadowRadius: 20, elevation: 10 }]}>
+        <View 
+          className={Platform.OS === 'web' ? 'rainbow-border-card' : ''}
+          style={[styles.petCard, { shadowColor: moodColor, shadowOpacity: 0.8, shadowRadius: 20, elevation: 10 }]}
+        >
           <View style={styles.petEmojiContainer}>
+            {Platform.OS === 'web' && (
+              <>
+                <div className="sparkle" style={{ left: '-20px', top: '10px', animationDelay: '0s' }}>✨</div>
+                <div className="sparkle" style={{ right: '-20px', top: '30px', animationDelay: '0.5s' }}>⭐</div>
+                <div className="sparkle" style={{ left: '10px', top: '-20px', animationDelay: '1s' }}>💫</div>
+              </>
+            )}
             <Animated.Text style={[styles.petEmoji, { transform: [{ translateY: bounceAnim }] }]}>
               {speciesEmoji}
             </Animated.Text>
@@ -173,14 +186,22 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.growthBadgeText}>{growthBadge}</Text>
             </View>
           </View>
-          <Text style={styles.petName}>{pet.name}</Text>
+          <Text 
+            className={Platform.OS === 'web' ? 'shimmer-text' : ''}
+            style={[styles.petName, Platform.OS === 'web' && { fontWeight: '900' }]}
+          >
+            {pet.name}
+          </Text>
           <Text style={styles.petMeta}>{pet.species} • Stage {pet.growth_stage + 1} • {pet.mood} mood</Text>
           <Text style={styles.petPersonality}>✨ {pet.personality}</Text>
         </View>
 
         {/* Last Response */}
         {lastResponse ? (
-          <Animated.View style={[styles.responseCard, { opacity: fadeAnim }]}>
+          <Animated.View 
+            className={Platform.OS === 'web' ? 'chat-tail' : ''}
+            style={[styles.responseCard, { opacity: fadeAnim }]}
+          >
             <Text style={styles.responseText}>"{lastResponse}"</Text>
           </Animated.View>
         ) : null}
@@ -194,19 +215,35 @@ export default function HomeScreen({ navigation }) {
 
         {/* Actions */}
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => doAction('feed')} disabled={actionLoading}>
+          <TouchableOpacity 
+            className={Platform.OS === 'web' ? 'glow-hover' : ''}
+            style={[styles.actionBtn, Platform.OS === 'web' && { transition: 'all 0.3s ease' }]} 
+            onPress={() => doAction('feed')} disabled={actionLoading}
+          >
             <Text style={styles.actionEmoji}>🍖</Text>
             <Text style={styles.actionText}>Feed</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => doAction('play')} disabled={actionLoading}>
+          <TouchableOpacity 
+            className={Platform.OS === 'web' ? 'glow-hover' : ''}
+            style={[styles.actionBtn, Platform.OS === 'web' && { transition: 'all 0.3s ease' }]} 
+            onPress={() => doAction('play')} disabled={actionLoading}
+          >
             <Text style={styles.actionEmoji}>🎮</Text>
             <Text style={styles.actionText}>Play</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => doAction('sleep')} disabled={actionLoading}>
+          <TouchableOpacity 
+            className={Platform.OS === 'web' ? 'glow-hover' : ''}
+            style={[styles.actionBtn, Platform.OS === 'web' && { transition: 'all 0.3s ease' }]} 
+            onPress={() => doAction('sleep')} disabled={actionLoading}
+          >
             <Text style={styles.actionEmoji}>😴</Text>
             <Text style={styles.actionText}>Sleep</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => navigation.navigate('Talk', { pet })}>
+          <TouchableOpacity 
+            className={Platform.OS === 'web' ? 'glow-hover' : ''}
+            style={[styles.actionBtn, Platform.OS === 'web' && { transition: 'all 0.3s ease' }]} 
+            onPress={() => navigation.navigate('Talk', { pet })}
+          >
             <Text style={styles.actionEmoji}>💬</Text>
             <Text style={styles.actionText}>Talk</Text>
           </TouchableOpacity>

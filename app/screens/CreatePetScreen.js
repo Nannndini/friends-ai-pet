@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { useState, useRef } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert, Platform, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 
@@ -19,6 +19,17 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
   const [species, setSpecies] = useState(SPECIES[0]);
   const [personality, setPersonality] = useState(PERSONALITIES[0]);
   const [loading, setLoading] = useState(false);
+
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+
+  const handleSpeciesSelect = (s) => {
+    setSpecies(s);
+    scaleAnim.setValue(1);
+    Animated.sequence([
+      Animated.timing(scaleAnim, { toValue: 1.1, duration: 100, useNativeDriver: true }),
+      Animated.spring(scaleAnim, { toValue: 1, friction: 3, tension: 40, useNativeDriver: true })
+    ]).start();
+  };
 
   async function createPet() {
     if (!name.trim()) return Alert.alert('Name your pet first!');
@@ -47,6 +58,7 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
 
   return (
     <LinearGradient colors={['#1a1a2e', '#16213e', '#0f3460']} style={styles.container}>
+      {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.2}} />}
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Create Your Pet 🐾</Text>
         <Text style={styles.label}>Name</Text>
@@ -62,10 +74,13 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
           {SPECIES.map((s) => (
             <TouchableOpacity
               key={s.name}
+              className={Platform.OS === 'web' ? 'species-card-hover ' + (species.name === s.name ? 'species-selected-glow' : '') : ''}
               style={[styles.speciesCard, species.name === s.name && styles.selected]}
-              onPress={() => setSpecies(s)}
+              onPress={() => handleSpeciesSelect(s)}
             >
-              <Text style={styles.speciesEmoji}>{s.emoji}</Text>
+              <Animated.Text style={[styles.speciesEmoji, species.name === s.name && { transform: [{ scale: scaleAnim }] }]}>
+                {s.emoji}
+              </Animated.Text>
               <Text style={styles.speciesName}>{s.name}</Text>
             </TouchableOpacity>
           ))}
@@ -74,13 +89,17 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
         {PERSONALITIES.map((p) => (
           <TouchableOpacity
             key={p}
+            className={Platform.OS === 'web' ? 'species-card-hover ' + (personality === p ? 'species-selected-glow' : '') : ''}
             style={[styles.personalityCard, personality === p && styles.selected]}
             onPress={() => setPersonality(p)}
           >
             <Text style={styles.personalityText}>{p}</Text>
           </TouchableOpacity>
         ))}
-        <TouchableOpacity style={styles.button} onPress={createPet} disabled={loading}>
+        <TouchableOpacity 
+          className={Platform.OS === 'web' ? 'glow-hover' : ''}
+          style={styles.button} onPress={createPet} disabled={loading}
+        >
           <Text style={styles.buttonText}>{loading ? 'Creating...' : `Adopt ${species.emoji}`}</Text>
         </TouchableOpacity>
       </ScrollView>

@@ -1,15 +1,27 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function WelcomeScreen({ navigation }) {
   return (
     <LinearGradient colors={['#1a1a2e', '#16213e', '#0f3460']} style={styles.container}>
+      {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0}} />}
       <View style={styles.content}>
         <Text style={styles.emoji}>🐾</Text>
-        <Text style={styles.title}>Friends</Text>
+        <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+          {"Friends".split('').map((char, index) => (
+            Platform.OS === 'web' ? (
+              <span key={index} className="blur-text-letter" style={{ animationDelay: `${index * 0.1}s`, color: '#fff', fontSize: '48px', fontWeight: 'bold', fontFamily: 'system-ui' }}>
+                {char}
+              </span>
+            ) : (
+              <Text key={index} style={styles.title}>{char}</Text>
+            )
+          ))}
+        </View>
         <Text style={styles.subtitle}>Raise your AI companion{'\n'}together with a friend</Text>
 
         <TouchableOpacity
+          className={Platform.OS === 'web' ? 'glow-hover' : ''}
           style={styles.button}
           onPress={() => navigation.navigate('Auth', { mode: 'signup' })}
         >
@@ -17,6 +29,7 @@ export default function WelcomeScreen({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity
+          className={Platform.OS === 'web' ? 'glow-hover' : ''}
           style={styles.buttonOutline}
           onPress={() => navigation.navigate('Auth', { mode: 'login' })}
         >

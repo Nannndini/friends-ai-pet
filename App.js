@@ -9,6 +9,7 @@ import CreatePetScreen from './app/screens/CreatePetScreen';
 import HomeScreen from './app/screens/HomeScreen';
 import TalkScreen from './app/screens/TalkScreen';
 import JournalScreen from './app/screens/JournalScreen';
+import WebStyles from './app/components/WebStyles';
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <WebStyles />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!session ? (
           <>

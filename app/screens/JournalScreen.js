@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 
@@ -21,6 +21,7 @@ export default function JournalScreen({ route, navigation }) {
   }, [petId]);
 
   const actionEmoji = { feed: '🍖', play: '🎮', sleep: '😴', talk: '💬' };
+  const actionColors = { feed: '#e94560', play: '#ffe66d', sleep: '#4ecdc4', talk: '#00d2ff' };
 
   return (
     <LinearGradient colors={['#1a1a2e', '#16213e', '#0f3460']} style={styles.container}>
@@ -34,9 +35,15 @@ export default function JournalScreen({ route, navigation }) {
         {entries.length === 0 && (
           <Text style={styles.empty}>No memories yet — start interacting with your pet!</Text>
         )}
-        {entries.map((entry) => (
-          <View key={entry.id} style={styles.entry}>
-            <Text style={styles.entryAction}>{actionEmoji[entry.action] || '🐾'} {entry.action}</Text>
+        {entries.map((entry, index) => (
+          <View 
+            key={entry.id} 
+            className={Platform.OS === 'web' ? 'stagger-fade-card tilt-hover' : ''}
+            style={[styles.entry, Platform.OS === 'web' && { animationDelay: `${index * 0.1}s` }]}
+          >
+            <Text style={[styles.entryAction, { color: actionColors[entry.action] || '#ffe66d' }]}>
+              {actionEmoji[entry.action] || '🐾'} {entry.action}
+            </Text>
             {entry.message && <Text style={styles.entryMessage}>You: "{entry.message}"</Text>}
             {entry.pet_response && <Text style={styles.entryResponse}>Pet: "{entry.pet_response}"</Text>}
             <Text style={styles.entryTime}>{new Date(entry.created_at).toLocaleString()}</Text>

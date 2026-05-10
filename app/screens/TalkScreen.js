@@ -1,8 +1,27 @@
-import { useState, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { useState, useRef, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 import { getPetResponse } from '../lib/groq';
+
+function AnimatedBubble({ msg }) {
+  const isUser = msg.role === 'user';
+  const slideAnim = useRef(new Animated.Value(isUser ? 50 : -50)).current;
+  const opacityAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.spring(slideAnim, { toValue: 0, tension: 50, friction: 6, useNativeDriver: true }),
+      Animated.timing(opacityAnim, { toValue: 1, duration: 300, useNativeDriver: true })
+    ]).start();
+  }, []);
+
+  return (
+    <Animated.View style={[styles.bubble, isUser ? styles.userBubble : styles.petBubble, { opacity: opacityAnim, transform: [{ translateX: slideAnim }] }]}>
+      <Text style={styles.bubbleText}>{msg.text}</Text>
+    </Animated.View>
+  );
+}
 
 export default function TalkScreen({ route, navigation }) {
   const { pet } = route.params;
@@ -34,6 +53,20 @@ export default function TalkScreen({ route, navigation }) {
 
   return (
     <LinearGradient colors={['#1a1a2e', '#16213e', '#0f3460']} style={styles.container}>
+      {Platform.OS === 'web' && (
+        <View style={StyleSheet.absoluteFill} pointerEvents="none">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="bg-particle" style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${Math.random() * 150 + 50}px`,
+              height: `${Math.random() * 150 + 50}px`,
+              backgroundColor: ['#e94560', '#4ecdc4', '#ffe66d'][i % 3],
+              animationDelay: `${i * -2}s`
+            }} />
+          ))}
+        </View>
+      )}
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -43,9 +76,7 @@ export default function TalkScreen({ route, navigation }) {
         </View>
         <ScrollView ref={scrollRef} style={styles.messages} contentContainerStyle={{ padding: 15 }}>
           {messages.map((msg, i) => (
-            <View key={i} style={[styles.bubble, msg.role === 'user' ? styles.userBubble : styles.petBubble]}>
-              <Text style={styles.bubbleText}>{msg.text}</Text>
-            </View>
+            <AnimatedBubble key={i} msg={msg} />
           ))}
           {loading && (
             <View style={styles.petBubble}>
@@ -62,7 +93,10 @@ export default function TalkScreen({ route, navigation }) {
             onChangeText={setInput}
             onSubmitEditing={sendMessage}
           />
-          <TouchableOpacity style={styles.sendBtn} onPress={sendMessage}>
+          <TouchableOpacity 
+            className={Platform.OS === 'web' ? 'ripple-btn' : ''}
+            style={styles.sendBtn} onPress={sendMessage}
+          >
             <Text style={styles.sendText}>Send</Text>
           </TouchableOpacity>
         </View>
