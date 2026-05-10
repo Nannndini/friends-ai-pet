@@ -3,7 +3,14 @@ import { Platform } from 'react-native';
 export default function WebStyles() {
   if (Platform.OS !== 'web') return null;
   return (
-    <style type="text/css">{`
+    <>
+      <svg style={{ width: 0, height: 0, position: 'absolute' }}>
+        <filter id="decay-filter">
+          <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
+      <style type="text/css">{`
       /* Aurora Background (Purple/Pink Waves) */
       @keyframes aurora {
         0% { background-position: 50% 50%, 50% 50%; }
@@ -287,6 +294,117 @@ export default function WebStyles() {
         background: #ec4899;
         border-color: #ec4899;
       }
+
+      /* =========================================
+         NEW REACTBITS EFFECTS
+         ========================================= */
+
+      /* 1. Cubes Background */
+      .cubes-container {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        perspective: 1000px;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .cube {
+        position: absolute;
+        width: 60px; height: 60px;
+        transform-style: preserve-3d;
+        animation: cubeRotate 10s infinite linear;
+      }
+      .cube div {
+        position: absolute; width: 100%; height: 100%;
+        background: rgba(124, 58, 237, 0.1);
+        border: 1px solid rgba(236, 72, 153, 0.3);
+      }
+      .cube .front  { transform: translateZ(30px); }
+      .cube .back   { transform: rotateY(180deg) translateZ(30px); }
+      .cube .right  { transform: rotateY(90deg) translateZ(30px); }
+      .cube .left   { transform: rotateY(-90deg) translateZ(30px); }
+      .cube .top    { transform: rotateX(90deg) translateZ(30px); }
+      .cube .bottom { transform: rotateX(-90deg) translateZ(30px); }
+      
+      @keyframes cubeRotate {
+        0% { transform: translateZ(-100px) rotateX(0deg) rotateY(0deg) translateY(100vh); opacity: 0; }
+        20% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { transform: translateZ(-100px) rotateX(360deg) rotateY(360deg) translateY(-20vh); opacity: 0; }
+      }
+
+      /* 2. Letter Glitch */
+      @keyframes glitchAnim {
+        0% { transform: translate(0); }
+        20% { transform: translate(-2px, 2px); }
+        40% { transform: translate(-2px, -2px); }
+        60% { transform: translate(2px, 2px); }
+        80% { transform: translate(2px, -2px); }
+        100% { transform: translate(0); }
+      }
+      .letter-glitch {
+        display: inline-block;
+        position: relative;
+      }
+      .letter-glitch:hover {
+        animation: glitchAnim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+        color: #ec4899;
+        text-shadow: 2px 0 #7c3aed, -2px 0 #3b82f6;
+      }
+
+      /* 3. Magic Rings */
+      .magic-ring-container {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 150px; height: 150px;
+        transform: translate(-50%, -50%);
+        transform-style: preserve-3d;
+        pointer-events: none;
+      }
+      .magic-ring {
+        position: absolute;
+        width: 100%; height: 100%;
+        border-radius: 50%;
+        border: 2px solid rgba(124, 58, 237, 0.5);
+        border-top: 2px solid #ec4899;
+      }
+      .ring-1 { animation: spinRingX 4s linear infinite; }
+      .ring-2 { animation: spinRingY 5s linear infinite; border-top-color: #3b82f6; }
+      .ring-3 { animation: spinRingZ 6s linear infinite; width: 120%; height: 120%; top: -10%; left: -10%; }
+      
+      @keyframes spinRingX { 100% { transform: rotateX(360deg) rotateY(180deg); } }
+      @keyframes spinRingY { 100% { transform: rotateY(360deg) rotateZ(180deg); } }
+      @keyframes spinRingZ { 100% { transform: rotateZ(360deg) rotateX(180deg); } }
+
+      /* 4. Decay Card */
+      .decay-card {
+        transition: all 0.3s ease;
+      }
+      .decay-card:hover {
+        filter: url(#decay-filter);
+        transform: scale(0.98);
+      }
+
+      /* 5. Pixel Transition Overlay */
+      .pixel-grid {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+        pointer-events: none;
+        z-index: 9999;
+      }
+      .pixel-cell {
+        background: #0a0a0f;
+        transform-origin: center;
+        animation: pixelShrink 0.8s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+      }
+      @keyframes pixelShrink {
+        0% { transform: scale(1.05); border-radius: 0; opacity: 1; }
+        50% { border-radius: 50%; opacity: 1; }
+        100% { transform: scale(0); opacity: 0; border-radius: 50%; }
+      }
     `}</style>
+    </>
   );
 }

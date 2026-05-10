@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert, Platform, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
+import PixelTransition from '../components/PixelTransition';
 
 const SPECIES = [
   { name: 'Cat', emoji: '🐱' },
@@ -58,6 +59,7 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
 
   return (
     <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+      <PixelTransition />
       {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.2}} />}
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Create Your Pet 🐾</Text>

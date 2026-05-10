@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
+import PixelTransition from '../components/PixelTransition';
 import { getPetResponse } from '../lib/groq';
 
 function AnimatedBubble({ msg }) {
@@ -56,6 +57,7 @@ export default function TalkScreen({ route, navigation }) {
 
   return (
     <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+      <PixelTransition />
       {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.1}} />}
       {Platform.OS === 'web' && (
         <View style={StyleSheet.absoluteFill} pointerEvents="none">

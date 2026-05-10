@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
+import PixelTransition from '../components/PixelTransition';
 
 export default function JournalScreen({ route, navigation }) {
   const { petId } = route.params;
@@ -25,6 +26,7 @@ export default function JournalScreen({ route, navigation }) {
 
   return (
     <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+      <PixelTransition />
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.back}>← Back</Text>

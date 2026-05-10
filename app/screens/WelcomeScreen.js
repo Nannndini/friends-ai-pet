@@ -1,16 +1,39 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import PixelTransition from '../components/PixelTransition';
 
 export default function WelcomeScreen({ navigation }) {
   return (
     <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
-      {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0}} />}
+      <PixelTransition />
+      {Platform.OS === 'web' && (
+        <div className="cubes-container">
+          <div className="cube" style={{ left: '15%', animationDelay: '0s' }}>
+            <div className="front"/><div className="back"/><div className="right"/><div className="left"/><div className="top"/><div className="bottom"/>
+          </div>
+          <div className="cube" style={{ left: '45%', animationDelay: '4s' }}>
+            <div className="front"/><div className="back"/><div className="right"/><div className="left"/><div className="top"/><div className="bottom"/>
+          </div>
+          <div className="cube" style={{ left: '75%', animationDelay: '7s' }}>
+            <div className="front"/><div className="back"/><div className="right"/><div className="left"/><div className="top"/><div className="bottom"/>
+          </div>
+        </div>
+      )}
       <View style={styles.content}>
-        <Text style={styles.emoji}>🐾</Text>
+        <View style={{ position: 'relative', marginBottom: 20 }}>
+          {Platform.OS === 'web' && (
+            <div className="magic-ring-container">
+              <div className="magic-ring ring-1"></div>
+              <div className="magic-ring ring-2"></div>
+              <div className="magic-ring ring-3"></div>
+            </div>
+          )}
+          <Text style={styles.emoji}>🐾</Text>
+        </View>
         <View style={{ flexDirection: 'row', marginBottom: 10 }}>
           {"Friends".split('').map((char, index) => (
             Platform.OS === 'web' ? (
-              <span key={index} className="blur-text-letter" style={{ animationDelay: `${index * 0.1}s`, color: '#fff', fontSize: '48px', fontWeight: 'bold', fontFamily: 'system-ui' }}>
+              <span key={index} className="letter-glitch" style={{ color: '#fff', fontSize: '48px', fontWeight: 'bold', fontFamily: 'system-ui' }}>
                 {char}
               </span>
             ) : (

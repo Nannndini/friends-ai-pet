@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
+import PixelTransition from '../components/PixelTransition';
 
 export default function AuthScreen({ navigation, route }) {
   const [email, setEmail] = useState('');
@@ -36,6 +37,7 @@ export default function AuthScreen({ navigation, route }) {
 
   return (
     <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+      <PixelTransition />
       <View style={styles.content}>
         <Text style={styles.title}>{mode === 'signup' ? 'Create Account' : 'Welcome Back'}</Text>
         <TextInput

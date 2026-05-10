@@ -3,6 +3,36 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput,
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 import { getPetResponse } from '../lib/groq';
+import PixelTransition from '../components/PixelTransition';
+
+function useCounter(targetValue) {
+  const [value, setValue] = useState(0);
+  const prevTarget = useRef(0);
+
+  useEffect(() => {
+    if (targetValue === undefined || targetValue === null) return;
+    let startTimestamp = null;
+    const duration = 1000;
+    const startValue = prevTarget.current;
+
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      setValue(Math.floor(progress * (targetValue - startValue) + startValue));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+    
+    if (targetValue !== startValue) {
+      if (Platform.OS === 'web') requestAnimationFrame(step);
+      else setValue(targetValue);
+      prevTarget.current = targetValue;
+    }
+  }, [targetValue]);
+
+  return value;
+}
 
 
 
@@ -29,6 +59,7 @@ export default function HomeScreen({ navigation }) {
   const [coparentEmail, setCoparentEmail] = useState('');
   const [showCoparent, setShowCoparent] = useState(false);
   const [shareLink, setShareLink] = useState('');
+  const displayInteractions = useCounter(pet?.interaction_count);
 
   const bounceAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -170,6 +201,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+      <PixelTransition />
       <ScrollView contentContainerStyle={styles.content}>
         {/* Header */}
         <View style={styles.header}>
@@ -181,7 +213,7 @@ export default function HomeScreen({ navigation }) {
 
         {/* Pet Display */}
         <View 
-          className={Platform.OS === 'web' ? 'electric-border' : ''}
+          className={Platform.OS === 'web' ? 'electric-border decay-card' : ''}
           style={[styles.petCard, { shadowColor: moodColor, shadowOpacity: 0.8, shadowRadius: 20, elevation: 10 }]}
         >
           <View style={styles.petEmojiContainer}>
@@ -306,7 +338,7 @@ export default function HomeScreen({ navigation }) {
           </View>
         )}
 
-        <Text style={styles.interactions}>Total interactions: {pet.interaction_count}</Text>
+        <Text style={styles.interactions}>Total interactions: {displayInteractions}</Text>
       </ScrollView>
 
       {showLevelUp && (
