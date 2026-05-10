@@ -51,26 +51,25 @@ export default function App() {
     );
   }
 
-  const getInitialRoute = () => {
-    if (!session) return 'Welcome';
-    if (!hasPet) return 'CreatePet';
-    return 'Home';
-  };
-
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={getInitialRoute()}
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="Auth" component={AuthScreen} />
-        <Stack.Screen name="CreatePet">
-          {(props) => <CreatePetScreen {...props} onPetCreated={() => setHasPet(true)} />}
-        </Stack.Screen>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Talk" component={TalkScreen} />
-        <Stack.Screen name="Journal" component={JournalScreen} />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {!session ? (
+          <>
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Auth" component={AuthScreen} />
+          </>
+        ) : !hasPet ? (
+          <Stack.Screen name="CreatePet">
+            {(props) => <CreatePetScreen {...props} onPetCreated={() => setHasPet(true)} />}
+          </Stack.Screen>
+        ) : (
+          <>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Talk" component={TalkScreen} />
+            <Stack.Screen name="Journal" component={JournalScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

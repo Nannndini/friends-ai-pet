@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 import { getPetResponse } from '../lib/groq';
 
-const GROWTH_STAGES = ['🥚', '🐣', '🐥', '🐾', '⭐', '👑'];
+
 
 function StatBar({ label, value, color }) {
   return (
@@ -98,7 +98,7 @@ export default function HomeScreen({ navigation }) {
 
   async function addCoparent() {
     const { data: userData } = await supabase
-      .from('auth.users')
+      .from('profiles')
       .select('id')
       .eq('email', coparentEmail)
       .single();
@@ -118,7 +118,33 @@ export default function HomeScreen({ navigation }) {
     </LinearGradient>
   );
 
-  const stageEmoji = GROWTH_STAGES[pet.growth_stage] || '🐾';
+  const SPECIES_EMOJIS = {
+    'Cat': '🐱',
+    'Dog': '🐶',
+    'Dragon': '🐲',
+    'Bunny': '🐰',
+    'Fox': '🦊',
+    'Panda': '🐼'
+  };
+
+  const getGrowthBadge = (stage) => {
+    if (stage === 0) return '🥚';
+    if (stage <= 2) return '🐣';
+    if (stage <= 4) return '🐥';
+    if (stage <= 6) return '🐾';
+    if (stage <= 8) return '⭐';
+    return '👑';
+  };
+
+  const speciesEmoji = SPECIES_EMOJIS[pet.species] || '🐾';
+  const growthBadge = getGrowthBadge(pet.growth_stage || 0);
+
+  const MOOD_COLORS = {
+    happy: '#ffe66d',
+    sad: '#4ecdc4',
+    neutral: '#e94560',
+  };
+  const moodColor = MOOD_COLORS[pet.mood] || '#ffffff';
 
   return (
     <LinearGradient colors={['#1a1a2e', '#16213e', '#0f3460']} style={styles.container}>
@@ -132,8 +158,15 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         {/* Pet Display */}
-        <View style={styles.petCard}>
-          <Animated.Text style={[styles.petEmoji, { transform: [{ translateY: bounceAnim }] }]}>{stageEmoji}</Animated.Text>
+        <View style={[styles.petCard, { shadowColor: moodColor, shadowOpacity: 0.8, shadowRadius: 20, elevation: 10 }]}>
+          <View style={styles.petEmojiContainer}>
+            <Animated.Text style={[styles.petEmoji, { transform: [{ translateY: bounceAnim }] }]}>
+              {speciesEmoji}
+            </Animated.Text>
+            <View style={styles.growthBadgeContainer}>
+              <Text style={styles.growthBadgeText}>{growthBadge}</Text>
+            </View>
+          </View>
           <Text style={styles.petName}>{pet.name}</Text>
           <Text style={styles.petMeta}>{pet.species} • Stage {pet.growth_stage + 1} • {pet.mood} mood</Text>
           <Text style={styles.petPersonality}>✨ {pet.personality}</Text>
@@ -222,6 +255,9 @@ const styles = StyleSheet.create({
   headerTitle: { fontSize: 24, fontWeight: 'bold', color: '#fff' },
   signOut: { color: '#e94560', fontSize: 14 },
   petCard: { backgroundColor: '#ffffff10', borderRadius: 20, padding: 30, alignItems: 'center', marginBottom: 15 },
+  petEmojiContainer: { position: 'relative' },
+  growthBadgeContainer: { position: 'absolute', bottom: -10, right: -10, backgroundColor: '#1a1a2e', borderRadius: 15, padding: 4, borderWidth: 1, borderColor: '#ffffff20' },
+  growthBadgeText: { fontSize: 24 },
   petEmoji: { fontSize: 80 },
   petName: { fontSize: 28, fontWeight: 'bold', color: '#fff', marginTop: 10 },
   petMeta: { color: '#a0a0c0', fontSize: 14, marginTop: 5 },

@@ -1,8 +1,23 @@
+import { supabase } from './supabase';
+
 const GROQ_API_KEY = process.env.EXPO_PUBLIC_GROQ_API_KEY;
 
 export async function getPetResponse(pet, action, userMessage = '') {
+  const { data: recentInteractions } = await supabase
+    .from('interactions')
+    .select('action, pet_response')
+    .eq('pet_id', pet.id)
+    .order('created_at', { ascending: false })
+    .limit(3);
+    
+  let memories = '';
+  if (recentInteractions && recentInteractions.length > 0) {
+    const memoryStrings = recentInteractions.map(i => `User did ${i.action}, you said: "${i.pet_response}"`).reverse();
+    memories = `\nRecent memories: [${memoryStrings.join(' | ')}]`;
+  }
+
   const prompt = `You are ${pet.name}, a ${pet.species} virtual pet with a ${pet.personality} personality.
-Your current mood is ${pet.mood}. Hunger: ${pet.hunger}/100. Happiness: ${pet.happiness}/100. Energy: ${pet.energy}/100.
+Your current mood is ${pet.mood}. Hunger: ${pet.hunger}/100. Happiness: ${pet.happiness}/100. Energy: ${pet.energy}/100.${memories}
 The user just did: "${action}" ${userMessage ? `and said: "${userMessage}"` : ''}.
 Respond as the pet in 1-2 short cute sentences. Be expressive and use emojis.`;
 
