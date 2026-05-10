@@ -11,8 +11,8 @@ export default function PixelTrail() {
       const pixel = document.createElement('div');
       pixel.className = 'pixel-trail-dot';
       // Center the 10x10 pixel exactly on cursor
-      pixel.style.left = \`\${e.clientX - 5}px\`;
-      pixel.style.top = \`\${e.clientY - 5}px\`;
+      pixel.style.left = `${e.clientX - 5}px`;
+      pixel.style.top = `${e.clientY - 5}px`;
       containerRef.current.appendChild(pixel);
 
       setTimeout(() => {
