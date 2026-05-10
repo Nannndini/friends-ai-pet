@@ -3,8 +3,10 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 import PixelTransition from '../components/PixelTransition';
+import { useTheme } from '../lib/ThemeContext';
 
 export default function AuthScreen({ navigation, route }) {
+  const { theme } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -35,33 +37,40 @@ export default function AuthScreen({ navigation, route }) {
     setLoading(false);
   }
 
+  const dynamicStyles = {
+    title: { color: theme.textMain },
+    input: { backgroundColor: theme.cardBg, color: theme.textMain, borderColor: theme.primaryLight },
+    button: { backgroundColor: theme.primary },
+    switchText: { color: theme.textMuted },
+  };
+
   return (
-    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
+    <LinearGradient colors={theme.bgGradient} style={styles.container}>
       <PixelTransition />
       <View style={styles.content}>
-        <Text style={styles.title}>{mode === 'signup' ? 'Create Account' : 'Welcome Back'}</Text>
+        <Text style={[styles.title, dynamicStyles.title]}>{mode === 'signup' ? 'Create Account' : 'Welcome Back'}</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, dynamicStyles.input]}
           placeholder="Email"
-          placeholderTextColor="#666"
+          placeholderTextColor={theme.textMuted}
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"
           keyboardType="email-address"
         />
         <TextInput
-          style={styles.input}
+          style={[styles.input, dynamicStyles.input]}
           placeholder="Password"
-          placeholderTextColor="#666"
+          placeholderTextColor={theme.textMuted}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
-        <TouchableOpacity style={styles.button} onPress={handleAuth} disabled={loading}>
+        <TouchableOpacity style={[styles.button, dynamicStyles.button]} onPress={handleAuth} disabled={loading}>
           <Text style={styles.buttonText}>{loading ? 'Loading...' : mode === 'signup' ? 'Sign Up' : 'Login'}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Auth', { mode: mode === 'login' ? 'signup' : 'login' })}>
-          <Text style={styles.switchText}>
+          <Text style={[styles.switchText, dynamicStyles.switchText]}>
             {mode === 'login' ? "Don't have an account? Sign Up" : 'Already have an account? Login'}
           </Text>
         </TouchableOpacity>

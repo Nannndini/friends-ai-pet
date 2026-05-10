@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert,
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 import PixelTransition from '../components/PixelTransition';
+import { useTheme } from '../lib/ThemeContext';
 
 const SPECIES = [
   { name: 'Cat', emoji: '🐱' },
@@ -16,6 +17,7 @@ const SPECIES = [
 const PERSONALITIES = ['curious and playful', 'shy and sweet', 'energetic and bold', 'calm and wise'];
 
 export default function CreatePetScreen({ navigation, onPetCreated }) {
+  const { theme } = useTheme();
   const [name, setName] = useState('');
   const [species, setSpecies] = useState(SPECIES[0]);
   const [personality, setPersonality] = useState(PERSONALITIES[0]);
@@ -57,50 +59,62 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
     }
   }
 
+  const dynamicStyles = {
+    title: { color: theme.textMain },
+    label: { color: theme.textMuted },
+    input: { backgroundColor: theme.cardBg, color: theme.textMain, borderColor: theme.primaryLight },
+    speciesCard: { backgroundColor: theme.cardBg, borderColor: theme.primaryLight },
+    speciesName: { color: theme.textMain },
+    personalityCard: { backgroundColor: theme.cardBg, borderColor: theme.primaryLight },
+    personalityText: { color: theme.textMain },
+    selected: { borderColor: theme.primary, backgroundColor: theme.primaryMuted },
+    button: { backgroundColor: theme.primary },
+  };
+
   return (
-    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
+    <LinearGradient colors={theme.bgGradient} style={styles.container}>
       <PixelTransition />
       {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.2}} />}
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Create Your Pet 🐾</Text>
-        <Text style={styles.label}>Name</Text>
+        <Text style={[styles.title, dynamicStyles.title]}>Create Your Pet 🐾</Text>
+        <Text style={[styles.label, dynamicStyles.label]}>Name</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, dynamicStyles.input]}
           placeholder="Give your pet a name..."
-          placeholderTextColor="#666"
+          placeholderTextColor={theme.textMuted}
           value={name}
           onChangeText={setName}
         />
-        <Text style={styles.label}>Choose Species</Text>
+        <Text style={[styles.label, dynamicStyles.label]}>Choose Species</Text>
         <View style={styles.grid}>
           {SPECIES.map((s) => (
             <TouchableOpacity
               key={s.name}
               className={Platform.OS === 'web' ? 'holographic-shimmer species-card-hover ' + (species.name === s.name ? 'species-selected-glow' : '') : ''}
-              style={[styles.speciesCard, species.name === s.name && styles.selected]}
+              style={[styles.speciesCard, dynamicStyles.speciesCard, species.name === s.name && dynamicStyles.selected]}
               onPress={() => handleSpeciesSelect(s)}
             >
               <Animated.Text style={[styles.speciesEmoji, species.name === s.name && { transform: [{ scale: scaleAnim }] }]}>
                 {s.emoji}
               </Animated.Text>
-              <Text style={styles.speciesName}>{s.name}</Text>
+              <Text style={[styles.speciesName, dynamicStyles.speciesName]}>{s.name}</Text>
             </TouchableOpacity>
           ))}
         </View>
-        <Text style={styles.label}>Personality</Text>
+        <Text style={[styles.label, dynamicStyles.label]}>Personality</Text>
         {PERSONALITIES.map((p) => (
           <TouchableOpacity
             key={p}
             className={Platform.OS === 'web' ? 'holographic-shimmer species-card-hover ' + (personality === p ? 'species-selected-glow' : '') : ''}
-            style={[styles.personalityCard, personality === p && styles.selected]}
+            style={[styles.personalityCard, dynamicStyles.personalityCard, personality === p && dynamicStyles.selected]}
             onPress={() => setPersonality(p)}
           >
-            <Text style={styles.personalityText}>{p}</Text>
+            <Text style={[styles.personalityText, dynamicStyles.personalityText]}>{p}</Text>
           </TouchableOpacity>
         ))}
         <TouchableOpacity 
           className={Platform.OS === 'web' ? 'glow-hover' : ''}
-          style={styles.button} onPress={createPet} disabled={loading}
+          style={[styles.button, dynamicStyles.button]} onPress={createPet} disabled={loading}
         >
           <Text style={styles.buttonText}>{loading ? 'Creating...' : `Adopt ${species.emoji}`}</Text>
         </TouchableOpacity>

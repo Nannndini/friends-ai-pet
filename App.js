@@ -11,6 +11,7 @@ import TalkScreen from './app/screens/TalkScreen';
 import JournalScreen from './app/screens/JournalScreen';
 import WebStyles from './app/components/WebStyles';
 import PixelTrail from './app/components/PixelTrail';
+import { ThemeProvider } from './app/lib/ThemeContext';
 
 const Stack = createStackNavigator();
 
@@ -24,8 +25,8 @@ export default function App() {
       .from('pets')
       .select('id')
       .or(`owner_id.eq.${userId},coparent_id.eq.${userId}`)
-      .maybeSingle();
-    setHasPet(!!data);
+      .limit(1);
+    setHasPet(!!(data && data.length > 0));
     setLoading(false);
   }
 
@@ -54,27 +55,29 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <WebStyles />
-      <PixelTrail />
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {!session ? (
-          <>
-            <Stack.Screen name="Welcome" component={WelcomeScreen} />
-            <Stack.Screen name="Auth" component={AuthScreen} />
-          </>
-        ) : !hasPet ? (
-          <Stack.Screen name="CreatePet">
-            {(props) => <CreatePetScreen {...props} onPetCreated={() => setHasPet(true)} />}
-          </Stack.Screen>
-        ) : (
-          <>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Talk" component={TalkScreen} />
-            <Stack.Screen name="Journal" component={JournalScreen} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer>
+        <WebStyles />
+        <PixelTrail />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {!session ? (
+            <>
+              <Stack.Screen name="Welcome" component={WelcomeScreen} />
+              <Stack.Screen name="Auth" component={AuthScreen} />
+            </>
+          ) : !hasPet ? (
+            <Stack.Screen name="CreatePet">
+              {(props) => <CreatePetScreen {...props} onPetCreated={() => setHasPet(true)} />}
+            </Stack.Screen>
+          ) : (
+            <>
+              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="Talk" component={TalkScreen} />
+              <Stack.Screen name="Journal" component={JournalScreen} />
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

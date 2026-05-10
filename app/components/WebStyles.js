@@ -1,7 +1,29 @@
 import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
+import { useTheme } from '../lib/ThemeContext';
+
+const hexToRgba = (hex, alpha) => {
+  let r = 0, g = 0, b = 0;
+  if (!hex) return `rgba(0,0,0,${alpha})`;
+  if (hex.length === 4) {
+    r = parseInt(hex[1] + hex[1], 16);
+    g = parseInt(hex[2] + hex[2], 16);
+    b = parseInt(hex[3] + hex[3], 16);
+  } else if (hex.length === 7) {
+    r = parseInt(hex.substring(1, 3), 16);
+    g = parseInt(hex.substring(3, 5), 16);
+    b = parseInt(hex.substring(5, 7), 16);
+  }
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
 
 export default function WebStyles() {
+  const themeContext = useTheme();
+  // Provide a fallback in case ThemeContext isn't fully mounted yet or used outside provider
+  const theme = themeContext?.theme || {
+    bgGradient: ['#fff0f3', '#ffe4e8', '#ffffff'], cardBg: '#ffffff', textMain: '#2d1b2e', textMuted: '#8b5a6b', primary: '#ff6b8a', primaryLight: '#ffb3c1', primaryMuted: '#fff0f3', statBarBg: '#ffe4e8',
+  };
+
   if (Platform.OS !== 'web') return null;
   const bubbles = useMemo(() => {
     if (Platform.OS !== 'web') return [];
@@ -10,9 +32,9 @@ export default function WebStyles() {
       size: 10 + Math.random() * 15,
       duration: 5 + Math.random() * 10,
       delay: Math.random() * 5,
-      color: Math.random() > 0.5 ? 'rgba(255, 107, 138, 0.3)' : 'rgba(255, 179, 193, 0.4)'
+      color: Math.random() > 0.5 ? hexToRgba(theme.primary, 0.3) : hexToRgba(theme.primaryLight, 0.4)
     }));
-  }, []);
+  }, [theme.primary, theme.primaryLight]);
 
   return (
     <>
@@ -29,7 +51,7 @@ export default function WebStyles() {
         100% { background-position: 350% 50%, 350% 50%; }
       }
       .aurora-bg {
-        background-image: repeating-linear-gradient(100deg, #fff0f3 0%, #ffe4e8 20%, #ffffff 40%, #fff0f3 60%);
+        background-image: repeating-linear-gradient(100deg, ${theme.bgGradient[0]} 0%, ${theme.bgGradient[1]} 20%, ${theme.bgGradient[2]} 40%, ${theme.bgGradient[0]} 60%);
         background-size: 200vw 200vh;
         animation: aurora 20s linear infinite;
       }
@@ -47,7 +69,7 @@ export default function WebStyles() {
 
       /* Gradient Text */
       .gradient-text {
-        background: linear-gradient(90deg, #ff6b8a, #ffb3c1);
+        background: linear-gradient(90deg, ${theme.primary}, ${theme.primaryLight});
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -63,7 +85,7 @@ export default function WebStyles() {
         position: relative;
         overflow: hidden;
         border-radius: 30px;
-        background: #ffffff;
+        background: ${theme.cardBg};
         z-index: 1;
         border: none !important;
       }
@@ -71,7 +93,7 @@ export default function WebStyles() {
         content: '';
         position: absolute;
         top: -50%; left: -50%; width: 200%; height: 200%;
-        background: conic-gradient(transparent, transparent, transparent, #ffb3c1, #ff6b8a, transparent);
+        background: conic-gradient(transparent, transparent, transparent, ${theme.primaryLight}, ${theme.primary}, transparent);
         animation: starBorderRotate 4s linear infinite;
         z-index: -1;
       }
@@ -79,7 +101,7 @@ export default function WebStyles() {
         content: '';
         position: absolute;
         top: 2px; left: 2px; right: 2px; bottom: 2px;
-        background: #ffffff;
+        background: ${theme.cardBg};
         border-radius: 28px;
         z-index: -1;
       }
@@ -88,14 +110,14 @@ export default function WebStyles() {
       .electric-border {
         position: relative;
         border-radius: 20px;
-        background: #ffffff;
+        background: ${theme.cardBg};
         z-index: 1;
       }
       .electric-border::before {
         content: '';
         position: absolute;
         top: -3px; left: -3px; right: -3px; bottom: -3px;
-        background: linear-gradient(45deg, #ff6b8a, #ffb3c1, #ff6b8a, #ffb3c1);
+        background: linear-gradient(45deg, ${theme.primary}, ${theme.primaryLight}, ${theme.primary}, ${theme.primaryLight});
         background-size: 300%;
         border-radius: 23px;
         z-index: -1;
@@ -112,7 +134,7 @@ export default function WebStyles() {
       .glow-hover { transition: all 0.3s ease; }
       .glow-hover:hover {
         transform: scale(1.05);
-        box-shadow: 0 0 15px rgba(255, 107, 138, 0.6);
+        box-shadow: 0 0 15px ${hexToRgba(theme.primary, 0.6)};
       }
 
       /* Sparkles */
@@ -125,7 +147,7 @@ export default function WebStyles() {
         position: absolute;
         animation: floatUpFade 2s ease-in infinite;
         pointer-events: none;
-        color: #ffb3c1;
+        color: ${theme.primaryLight};
       }
 
       /* Stats Smooth */
@@ -146,7 +168,7 @@ export default function WebStyles() {
         transform: translateX(-50%);
         border-width: 10px 10px 0;
         border-style: solid;
-        border-color: rgba(255, 107, 138, 0.3) transparent transparent transparent;
+        border-color: ${hexToRgba(theme.primary, 0.3)} transparent transparent transparent;
         display: block;
         width: 0;
       }
@@ -157,7 +179,7 @@ export default function WebStyles() {
         100% { background-position: 200% center; }
       }
       .shimmer-text {
-        background: linear-gradient(90deg, #2d1b2e 0%, #ff6b8a 50%, #2d1b2e 100%);
+        background: linear-gradient(90deg, ${theme.textMain} 0%, ${theme.primary} 50%, ${theme.textMain} 100%);
         background-size: 200% auto;
         color: transparent !important;
         -webkit-background-clip: text;
@@ -170,12 +192,12 @@ export default function WebStyles() {
         background: rgba(255, 255, 255, 0.8) !important;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border: 1px solid #ffb3c1 !important;
+        border: 1px solid ${theme.primaryLight} !important;
       }
 
       /* Gradient Bubble */
       .gradient-bubble {
-        background: linear-gradient(135deg, #ff6b8a, #ffb3c1) !important;
+        background: linear-gradient(135deg, ${theme.primary}, ${theme.primaryLight}) !important;
       }
 
       /* Holographic Shimmer */
@@ -191,7 +213,7 @@ export default function WebStyles() {
         content: '';
         position: absolute;
         top: -50%; left: -50%; width: 200%; height: 200%;
-        background: linear-gradient(45deg, transparent 40%, rgba(255, 107, 138, 0.1) 45%, rgba(255, 107, 138, 0.3) 50%, rgba(255, 107, 138, 0.1) 55%, transparent 60%);
+        background: linear-gradient(45deg, transparent 40%, ${hexToRgba(theme.primary, 0.1)} 45%, ${hexToRgba(theme.primary, 0.3)} 50%, ${hexToRgba(theme.primary, 0.1)} 55%, transparent 60%);
         background-size: 200% 200%;
         opacity: 0;
         transition: opacity 0.3s;
@@ -235,26 +257,26 @@ export default function WebStyles() {
       }
       .tilt-hover:hover {
         transform: translateY(-5px) scale(1.02) rotateX(5deg) rotateY(-5deg);
-        box-shadow: 0 10px 20px rgba(255, 107, 138, 0.2);
+        box-shadow: 0 10px 20px ${hexToRgba(theme.primary, 0.2)};
       }
 
       /* Species Glow */
       .species-card-hover { transition: all 0.2s ease; }
       .species-card-hover:hover {
         transform: scale(1.05);
-        background: #fff0f3;
+        background: ${theme.primaryMuted};
       }
       .species-selected-glow {
-        box-shadow: 0 0 20px rgba(255, 107, 138, 0.3) !important;
-        border-color: #ff6b8a !important;
-        background: #ffe4e8 !important;
+        box-shadow: 0 0 20px ${hexToRgba(theme.primary, 0.3)} !important;
+        border-color: ${theme.primary} !important;
+        background: ${theme.statBarBg} !important;
       }
 
       /* Ripple Send */
       .ripple-btn {
         position: relative;
         overflow: hidden;
-        box-shadow: 0 0 15px rgba(255, 107, 138, 0.4);
+        box-shadow: 0 0 15px ${hexToRgba(theme.primary, 0.4)};
       }
       .ripple-btn::after {
         content: "";
@@ -287,7 +309,7 @@ export default function WebStyles() {
         top: 20px;
         bottom: 20px;
         width: 2px;
-        background: linear-gradient(to bottom, #ff6b8a, #ffb3c1);
+        background: linear-gradient(to bottom, ${theme.primary}, ${theme.primaryLight});
         opacity: 0.5;
       }
       .timeline-dot {
@@ -297,15 +319,15 @@ export default function WebStyles() {
         width: 12px;
         height: 12px;
         border-radius: 50%;
-        background: #ffffff;
-        border: 2px solid #ffb3c1;
+        background: ${theme.cardBg};
+        border: 2px solid ${theme.primaryLight};
         z-index: 2;
         transition: transform 0.3s;
       }
       .tilt-hover:hover .timeline-dot {
         transform: scale(1.5);
-        background: #ff6b8a;
-        border-color: #ff6b8a;
+        background: ${theme.primary};
+        border-color: ${theme.primary};
       }
 
       /* =========================================
@@ -328,8 +350,8 @@ export default function WebStyles() {
       }
       .cube div {
         position: absolute; width: 100%; height: 100%;
-        background: rgba(255, 107, 138, 0.1);
-        border: 1px solid rgba(255, 179, 193, 0.5);
+        background: ${hexToRgba(theme.primary, 0.1)};
+        border: 1px solid ${hexToRgba(theme.primaryLight, 0.5)};
       }
       .cube .front  { transform: translateZ(30px); }
       .cube .back   { transform: rotateY(180deg) translateZ(30px); }
@@ -360,8 +382,8 @@ export default function WebStyles() {
       }
       .letter-glitch:hover {
         animation: glitchAnim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-        color: #ffb3c1;
-        text-shadow: 2px 0 #ff6b8a, -2px 0 #ffffff;
+        color: ${theme.primaryLight};
+        text-shadow: 2px 0 ${theme.primary}, -2px 0 ${theme.cardBg};
       }
 
       /* 3. Magic Rings */
@@ -377,11 +399,11 @@ export default function WebStyles() {
         position: absolute;
         width: 100%; height: 100%;
         border-radius: 50%;
-        border: 2px solid rgba(255, 179, 193, 0.5);
-        border-top: 2px solid #ff6b8a;
+        border: 2px solid ${hexToRgba(theme.primaryLight, 0.5)};
+        border-top: 2px solid ${theme.primary};
       }
       .ring-1 { animation: spinRingX 4s linear infinite; }
-      .ring-2 { animation: spinRingY 5s linear infinite; border-top-color: #ffb3c1; }
+      .ring-2 { animation: spinRingY 5s linear infinite; border-top-color: ${theme.primaryLight}; }
       .ring-3 { animation: spinRingZ 6s linear infinite; width: 120%; height: 120%; top: -10%; left: -10%; }
       
       @keyframes spinRingX { 100% { transform: rotateX(360deg) rotateY(180deg); } }
@@ -408,7 +430,7 @@ export default function WebStyles() {
         z-index: 9999;
       }
       .pixel-cell {
-        background: #fff0f3;
+        background: ${theme.primaryMuted};
         transform-origin: center;
         animation: pixelShrink 0.8s cubic-bezier(0.87, 0, 0.13, 1) forwards;
       }
@@ -422,7 +444,7 @@ export default function WebStyles() {
       .pixel-trail-dot {
         position: absolute;
         width: 10px; height: 10px;
-        background-color: #ffb3c1;
+        background-color: ${theme.primaryLight};
         pointer-events: none;
         animation: trailFade 0.6s cubic-bezier(0.1, 0.9, 0.1, 1) forwards;
         z-index: 9999;

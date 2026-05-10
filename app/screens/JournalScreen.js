@@ -3,8 +3,10 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform } from '
 import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 import PixelTransition from '../components/PixelTransition';
+import { useTheme } from '../lib/ThemeContext';
 
 export default function JournalScreen({ route, navigation }) {
+  const { theme } = useTheme();
   const { petId } = route.params;
   const [entries, setEntries] = useState([]);
 
@@ -22,35 +24,35 @@ export default function JournalScreen({ route, navigation }) {
   }, [petId]);
 
   const actionEmoji = { feed: '🍖', play: '🎮', sleep: '😴', talk: '💬' };
-  const actionColors = { feed: '#ffb3c1', play: '#ff6b8a', sleep: '#ffb3c1', talk: '#ff6b8a' };
+  const actionColors = { feed: theme.primaryLight, play: theme.primary, sleep: theme.primaryLight, talk: theme.primary };
 
   return (
-    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
+    <LinearGradient colors={theme.bgGradient} style={styles.container}>
       <PixelTransition />
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text style={styles.back}>← Back</Text>
+          <Text style={[styles.back, { color: theme.primary }]}>← Back</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>📖 Pet Journal</Text>
+        <Text style={[styles.headerTitle, { color: theme.textMain }]}>📖 Pet Journal</Text>
       </View>
       <ScrollView contentContainerStyle={styles.content}>
         {entries.length === 0 && (
-          <Text style={styles.empty}>No memories yet — start interacting with your pet!</Text>
+          <Text style={[styles.empty, { color: theme.textMuted }]}>No memories yet — start interacting with your pet!</Text>
         )}
         <View className={Platform.OS === 'web' ? 'timeline-container' : ''}>
           {entries.map((entry, index) => (
             <View 
               key={entry.id} 
               className={Platform.OS === 'web' ? 'stagger-fade-card tilt-hover' : ''}
-              style={[styles.entry, Platform.OS === 'web' && { animationDelay: `${index * 0.1}s` }]}
+              style={[styles.entry, { backgroundColor: theme.cardBg, borderColor: theme.primaryLight }, Platform.OS === 'web' && { animationDelay: `${index * 0.1}s` }]}
             >
               {Platform.OS === 'web' && <div className="timeline-dot" />}
-              <Text style={[styles.entryAction, { color: actionColors[entry.action] || '#a855f7' }]}>
+              <Text style={[styles.entryAction, { color: actionColors[entry.action] || theme.primary }]}>
                 {actionEmoji[entry.action] || '🐾'} {entry.action}
               </Text>
-              {entry.message && <Text style={styles.entryMessage}>You: "{entry.message}"</Text>}
-              {entry.pet_response && <Text style={styles.entryResponse}>Pet: "{entry.pet_response}"</Text>}
-              <Text style={styles.entryTime}>{new Date(entry.created_at).toLocaleString()}</Text>
+              {entry.message && <Text style={[styles.entryMessage, { color: theme.textMuted }]}>You: "{entry.message}"</Text>}
+              {entry.pet_response && <Text style={[styles.entryResponse, { color: theme.textMain }]}>Pet: "{entry.pet_response}"</Text>}
+              <Text style={[styles.entryTime, { color: theme.textMuted }]}>{new Date(entry.created_at).toLocaleString()}</Text>
             </View>
           ))}
         </View>

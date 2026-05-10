@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import PixelTransition from '../components/PixelTransition';
+import { useTheme } from '../lib/ThemeContext';
 
 export default function WelcomeScreen({ navigation }) {
+  const { theme } = useTheme();
   return (
-    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
+    <LinearGradient colors={theme.bgGradient} style={styles.container}>
       <PixelTransition />
       {Platform.OS === 'web' && (
         <div className="cubes-container">
@@ -33,21 +35,21 @@ export default function WelcomeScreen({ navigation }) {
         <View style={{ flexDirection: 'row', marginBottom: 10 }}>
           {"Friends".split('').map((char, index) => (
             Platform.OS === 'web' ? (
-              <span key={index} className="letter-glitch" style={{ color: '#2d1b2e', fontSize: '48px', fontWeight: 'bold', fontFamily: 'system-ui' }}>
+              <span key={index} className="letter-glitch" style={{ color: theme.textMain, fontSize: '48px', fontWeight: 'bold', fontFamily: 'system-ui' }}>
                 {char}
               </span>
             ) : (
-              <Text key={index} style={styles.title}>{char}</Text>
+              <Text key={index} style={[styles.title, { color: theme.textMain }]}>{char}</Text>
             )
           ))}
         </View>
-        <Text style={[styles.subtitle]}>
+        <Text style={[styles.subtitle, { color: theme.textMuted }]}>
           Raise your AI companion{'\n'}together with a friend
         </Text>
 
         <TouchableOpacity
           className={Platform.OS === 'web' ? 'glow-hover' : ''}
-          style={styles.button}
+          style={[styles.button, { backgroundColor: theme.primary }]}
           onPress={() => navigation.navigate('Auth', { mode: 'signup' })}
         >
           <Text style={styles.buttonText}>Get Started</Text>
@@ -55,10 +57,10 @@ export default function WelcomeScreen({ navigation }) {
 
         <TouchableOpacity
           className={Platform.OS === 'web' ? 'glow-hover' : ''}
-          style={styles.buttonOutline}
+          style={[styles.buttonOutline, { borderColor: theme.primary }]}
           onPress={() => navigation.navigate('Auth', { mode: 'login' })}
         >
-          <Text style={styles.buttonOutlineText}>I already have an account</Text>
+          <Text style={[styles.buttonOutlineText, { color: theme.primary }]}>I already have an account</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>

@@ -4,8 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { supabase } from '../lib/supabase';
 import PixelTransition from '../components/PixelTransition';
 import { getPetResponse } from '../lib/groq';
+import { useTheme } from '../lib/ThemeContext';
 
-function AnimatedBubble({ msg }) {
+function AnimatedBubble({ msg, theme }) {
   const isUser = msg.role === 'user';
   const slideAnim = useRef(new Animated.Value(isUser ? 50 : -50)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
@@ -20,14 +21,15 @@ function AnimatedBubble({ msg }) {
   return (
     <Animated.View 
       className={Platform.OS === 'web' ? (isUser ? 'gradient-bubble' : 'glass-morphism') : ''}
-      style={[styles.bubble, isUser ? styles.userBubble : styles.petBubble, { opacity: opacityAnim, transform: [{ translateX: slideAnim }] }]}
+      style={[styles.bubble, isUser ? [styles.userBubble, { backgroundColor: theme.primary }] : [styles.petBubble, { backgroundColor: theme.cardBg, borderColor: theme.primaryLight }], { opacity: opacityAnim, transform: [{ translateX: slideAnim }] }]}
     >
-      <Text style={[styles.bubbleText, isUser ? {color: '#fff'} : {color: '#2d1b2e'}]}>{msg.text}</Text>
+      <Text style={[styles.bubbleText, isUser ? {color: '#fff'} : {color: theme.textMain}]}>{msg.text}</Text>
     </Animated.View>
   );
 }
 
 export default function TalkScreen({ route, navigation }) {
+  const { theme } = useTheme();
   const { pet } = route.params;
   const [messages, setMessages] = useState([
     { role: 'pet', text: `Hi! I'm ${pet.name} 🐾 Talk to me!` }
@@ -56,7 +58,7 @@ export default function TalkScreen({ route, navigation }) {
   }
 
   return (
-    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
+    <LinearGradient colors={theme.bgGradient} style={styles.container}>
       <PixelTransition />
       {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.1}} />}
       {Platform.OS === 'web' && (
@@ -67,7 +69,7 @@ export default function TalkScreen({ route, navigation }) {
               top: `${Math.random() * 100}%`,
               width: `${Math.random() * 150 + 50}px`,
               height: `${Math.random() * 150 + 50}px`,
-              backgroundColor: ['#e94560', '#4ecdc4', '#ffe66d'][i % 3],
+              backgroundColor: [theme.primary, theme.primaryLight, theme.statBarBg][i % 3],
               animationDelay: `${i * -2}s`
             }} />
           ))}
@@ -76,32 +78,32 @@ export default function TalkScreen({ route, navigation }) {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text style={styles.back}>← Back</Text>
+            <Text style={[styles.back, { color: theme.primary }]}>← Back</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Chat with {pet.name}</Text>
+          <Text style={[styles.headerTitle, { color: theme.textMain }]}>Chat with {pet.name}</Text>
         </View>
         <ScrollView ref={scrollRef} style={styles.messages} contentContainerStyle={{ padding: 15 }}>
           {messages.map((msg, i) => (
-            <AnimatedBubble key={i} msg={msg} />
+            <AnimatedBubble key={i} msg={msg} theme={theme} />
           ))}
           {loading && (
-            <View style={styles.petBubble}>
-              <Text style={styles.bubbleText}>typing...</Text>
+            <View style={[styles.petBubble, { backgroundColor: theme.cardBg, borderColor: theme.primaryLight }]}>
+              <Text style={[styles.bubbleText, { color: theme.textMain }]}>typing...</Text>
             </View>
           )}
         </ScrollView>
         <View style={styles.inputRow}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { backgroundColor: theme.cardBg, color: theme.textMain, borderColor: theme.primaryLight }]}
             placeholder="Say something..."
-            placeholderTextColor="#666"
+            placeholderTextColor={theme.textMuted}
             value={input}
             onChangeText={setInput}
             onSubmitEditing={sendMessage}
           />
           <TouchableOpacity 
             className={Platform.OS === 'web' ? 'ripple-btn' : ''}
-            style={styles.sendBtn} onPress={sendMessage}
+            style={[styles.sendBtn, { backgroundColor: theme.primary }]} onPress={sendMessage}
           >
             <Text style={styles.sendText}>Send</Text>
           </TouchableOpacity>
