@@ -58,7 +58,7 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
   }
 
   return (
-    <LinearGradient colors={['#1a0a0f', '#2d1420', '#3f1c2d']} style={styles.container}>
+    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
       <PixelTransition />
       {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.2}} />}
       <ScrollView contentContainerStyle={styles.content}>
@@ -112,41 +112,41 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   content: { padding: 30, paddingTop: 60 },
-  title: { fontSize: 28, fontWeight: 'bold', color: '#fff', marginBottom: 30, textAlign: 'center' },
-  label: { color: '#fecdd3', fontSize: 14, marginBottom: 10, marginTop: 20 },
+  title: { fontSize: 28, fontWeight: 'bold', color: '#2d1b2e', marginBottom: 30, textAlign: 'center' },
+  label: { color: '#8b5a6b', fontSize: 14, marginBottom: 10, marginTop: 20 },
   input: {
-    backgroundColor: 'rgba(253,164,175,0.05)',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 16,
-    color: '#fff',
+    color: '#2d1b2e',
     fontSize: 16,
     borderWidth: 1,
-    borderColor: 'rgba(244,114,182,0.3)',
+    borderColor: '#ffb3c1',
   },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   speciesCard: {
-    backgroundColor: '#2d1420',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 15,
     alignItems: 'center',
     width: '30%',
     borderWidth: 2,
-    borderColor: 'transparent',
+    borderColor: '#ffb3c1',
   },
   speciesEmoji: { fontSize: 32 },
-  speciesName: { color: '#fff', fontSize: 12, marginTop: 5 },
+  speciesName: { color: '#2d1b2e', fontSize: 12, marginTop: 5 },
   personalityCard: {
-    backgroundColor: '#2d1420',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 14,
     marginBottom: 8,
     borderWidth: 2,
-    borderColor: 'transparent',
+    borderColor: '#ffb3c1',
   },
-  personalityText: { color: '#fff', fontSize: 14 },
-  selected: { borderColor: '#f472b6' },
+  personalityText: { color: '#2d1b2e', fontSize: 14 },
+  selected: { borderColor: '#ff6b8a', backgroundColor: '#fff0f3' },
   button: {
-    backgroundColor: '#e11d48',
+    backgroundColor: '#ff6b8a',
     padding: 16,
     borderRadius: 30,
     alignItems: 'center',

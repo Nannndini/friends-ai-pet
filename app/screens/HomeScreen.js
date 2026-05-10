@@ -193,14 +193,14 @@ export default function HomeScreen({ navigation }) {
   const growthBadge = getGrowthBadge(pet.growth_stage || 0);
 
   const MOOD_COLORS = {
-    happy: '#f472b6',
-    sad: '#fda4af',
-    neutral: '#fb7185',
+    happy: '#ff6b8a',
+    sad: '#ffb3c1',
+    neutral: '#ff6b8a',
   };
-  const moodColor = MOOD_COLORS[pet.mood] || '#f472b6';
+  const moodColor = MOOD_COLORS[pet.mood] || '#ff6b8a';
 
   return (
-    <LinearGradient colors={['#1a0a0f', '#2d1420', '#3f1c2d']} style={styles.container}>
+    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
       <PixelTransition />
       <ScrollView contentContainerStyle={styles.content}>
         {/* Header */}
@@ -253,15 +253,15 @@ export default function HomeScreen({ navigation }) {
 
         {/* Stats */}
         <View style={styles.statsCard}>
-          <StatBar label="🍖 Hunger" value={pet.hunger} color="#fb7185" />
-          <StatBar label="😊 Happy" value={pet.happiness} color="#f472b6" />
-          <StatBar label="⚡ Energy" value={pet.energy} color="#fda4af" />
+          <StatBar label="🍖 Hunger" value={pet.hunger} color="#ffb3c1" />
+          <StatBar label="😊 Happy" value={pet.happiness} color="#ff6b8a" />
+          <StatBar label="⚡ Energy" value={pet.energy} color="#ffb3c1" />
         </View>
 
         {/* Actions */}
         <View style={styles.actions}>
           <TouchableOpacity 
-            className={Platform.OS === 'web' ? 'glow-hover' : ''}
+            className={Platform.OS === 'web' ? 'electric-border glow-hover' : ''}
             style={[styles.actionBtn, Platform.OS === 'web' && { transition: 'all 0.3s ease' }]} 
             onPress={() => doAction('feed')} disabled={actionLoading}
           >
@@ -269,7 +269,7 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.actionText}>Feed</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            className={Platform.OS === 'web' ? 'glow-hover' : ''}
+            className={Platform.OS === 'web' ? 'electric-border glow-hover' : ''}
             style={[styles.actionBtn, Platform.OS === 'web' && { transition: 'all 0.3s ease' }]} 
             onPress={() => doAction('play')} disabled={actionLoading}
           >
@@ -277,7 +277,7 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.actionText}>Play</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            className={Platform.OS === 'web' ? 'glow-hover' : ''}
+            className={Platform.OS === 'web' ? 'electric-border glow-hover' : ''}
             style={[styles.actionBtn, Platform.OS === 'web' && { transition: 'all 0.3s ease' }]} 
             onPress={() => doAction('sleep')} disabled={actionLoading}
           >
@@ -285,7 +285,7 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.actionText}>Sleep</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            className={Platform.OS === 'web' ? 'glow-hover' : ''}
+            className={Platform.OS === 'web' ? 'electric-border glow-hover' : ''}
             style={[styles.actionBtn, Platform.OS === 'web' && { transition: 'all 0.3s ease' }]} 
             onPress={() => navigation.navigate('Talk', { pet })}
           >
@@ -355,40 +355,40 @@ const styles = StyleSheet.create({
   content: { padding: 20, paddingTop: 50 },
   loadingText: { color: '#fff', textAlign: 'center', marginTop: 100, fontSize: 18 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
-  headerTitle: { fontSize: 24, fontWeight: 'bold', color: '#fff' },
-  signOut: { color: '#fb7185', fontSize: 14 },
-  petCard: { backgroundColor: '#2d1420', borderRadius: 20, padding: 30, alignItems: 'center', marginBottom: 15 },
+  headerTitle: { fontSize: 24, fontWeight: 'bold', color: '#2d1b2e' },
+  signOut: { color: '#ff6b8a', fontSize: 14 },
+  petCard: { backgroundColor: '#ffffff', borderRadius: 20, padding: 30, alignItems: 'center', marginBottom: 15 },
   petEmojiContainer: { position: 'relative' },
-  growthBadgeContainer: { position: 'absolute', bottom: -10, right: -10, backgroundColor: '#1a0a0f', borderRadius: 15, padding: 4, borderWidth: 1, borderColor: 'rgba(244, 114, 182, 0.4)' },
+  growthBadgeContainer: { position: 'absolute', bottom: -10, right: -10, backgroundColor: '#fff0f3', borderRadius: 15, padding: 4, borderWidth: 1, borderColor: '#ffb3c1' },
   growthBadgeText: { fontSize: 24 },
   petEmoji: { fontSize: 80 },
-  petName: { fontSize: 28, fontWeight: 'bold', color: '#fff', marginTop: 10 },
-  petMeta: { color: '#fecdd3', fontSize: 14, marginTop: 5 },
-  petPersonality: { color: '#fda4af', fontSize: 13, marginTop: 8 },
-  responseCard: { backgroundColor: 'rgba(244, 114, 182, 0.1)', borderRadius: 15, padding: 15, marginBottom: 15, borderWidth: 1, borderColor: 'rgba(244, 114, 182, 0.3)' },
-  responseText: { color: '#fff', fontSize: 15, fontStyle: 'italic', textAlign: 'center' },
-  statsCard: { backgroundColor: '#2d1420', borderRadius: 15, padding: 15, marginBottom: 15 },
+  petName: { fontSize: 28, fontWeight: 'bold', color: '#2d1b2e', marginTop: 10 },
+  petMeta: { color: '#8b5a6b', fontSize: 14, marginTop: 5 },
+  petPersonality: { color: '#ffb3c1', fontSize: 13, marginTop: 8 },
+  responseCard: { backgroundColor: '#fff0f3', borderRadius: 15, padding: 15, marginBottom: 15, borderWidth: 1, borderColor: '#ffb3c1' },
+  responseText: { color: '#2d1b2e', fontSize: 15, fontStyle: 'italic', textAlign: 'center' },
+  statsCard: { backgroundColor: '#ffffff', borderRadius: 15, padding: 15, marginBottom: 15 },
   statRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
-  statLabel: { color: '#fecdd3', fontSize: 13, width: 80 },
-  statBarBg: { flex: 1, backgroundColor: 'rgba(253,164,175,0.05)', borderRadius: 10, height: 8, marginHorizontal: 10 },
+  statLabel: { color: '#8b5a6b', fontSize: 13, width: 80 },
+  statBarBg: { flex: 1, backgroundColor: '#ffe4e8', borderRadius: 10, height: 8, marginHorizontal: 10 },
   statBarFill: { height: 8, borderRadius: 10 },
-  statValue: { color: '#fff', fontSize: 13, width: 30, textAlign: 'right' },
+  statValue: { color: '#2d1b2e', fontSize: 13, width: 30, textAlign: 'right' },
   actions: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 },
-  actionBtn: { backgroundColor: '#2d1420', borderRadius: 15, padding: 15, alignItems: 'center', flex: 1, marginHorizontal: 4 },
+  actionBtn: { backgroundColor: '#ffffff', borderRadius: 15, padding: 15, alignItems: 'center', flex: 1, marginHorizontal: 4 },
   actionEmoji: { fontSize: 28 },
-  actionText: { color: '#fff', fontSize: 12, marginTop: 5 },
+  actionText: { color: '#2d1b2e', fontSize: 12, marginTop: 5 },
   navRow: { flexDirection: 'row', gap: 10, marginBottom: 15 },
-  navBtn: { flex: 1, backgroundColor: '#2d1420', borderRadius: 12, padding: 14, alignItems: 'center' },
-  navBtnText: { color: '#fff', fontSize: 14, fontWeight: '600' },
-  coparentCard: { backgroundColor: '#2d1420', borderRadius: 15, padding: 20, marginBottom: 15 },
-  coparentTitle: { color: '#fff', fontSize: 16, fontWeight: 'bold', marginBottom: 12 },
-  input: { backgroundColor: 'rgba(253,164,175,0.05)', borderRadius: 10, padding: 12, color: '#fff', marginBottom: 10, borderWidth: 1, borderColor: 'rgba(244, 114, 182, 0.3)' },
-  inviteBtn: { backgroundColor: '#e11d48', borderRadius: 10, padding: 12, alignItems: 'center' },
+  navBtn: { flex: 1, backgroundColor: '#ffffff', borderRadius: 12, padding: 14, alignItems: 'center' },
+  navBtnText: { color: '#2d1b2e', fontSize: 14, fontWeight: '600' },
+  coparentCard: { backgroundColor: '#ffffff', borderRadius: 15, padding: 20, marginBottom: 15 },
+  coparentTitle: { color: '#2d1b2e', fontSize: 16, fontWeight: 'bold', marginBottom: 12 },
+  input: { backgroundColor: '#ffffff', borderRadius: 10, padding: 12, color: '#2d1b2e', marginBottom: 10, borderWidth: 1, borderColor: '#ffb3c1' },
+  inviteBtn: { backgroundColor: '#ff6b8a', borderRadius: 10, padding: 12, alignItems: 'center' },
   inviteBtnText: { color: '#fff', fontWeight: 'bold' },
-  interactions: { color: '#fecdd3', textAlign: 'center', fontSize: 13, marginBottom: 30 },
+  interactions: { color: '#8b5a6b', textAlign: 'center', fontSize: 13, marginBottom: 30 },
   levelUpOverlay: {
     position: 'absolute', top: '40%', left: 20, right: 20,
-    backgroundColor: 'rgba(244, 114, 182, 0.9)', padding: 20, borderRadius: 20,
+    backgroundColor: 'rgba(255, 107, 138, 0.9)', padding: 20, borderRadius: 20,
     alignItems: 'center', justifyContent: 'center', zIndex: 100,
     elevation: 10, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 5
   },

@@ -10,6 +10,7 @@ import HomeScreen from './app/screens/HomeScreen';
 import TalkScreen from './app/screens/TalkScreen';
 import JournalScreen from './app/screens/JournalScreen';
 import WebStyles from './app/components/WebStyles';
+import PixelTrail from './app/components/PixelTrail';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +56,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <WebStyles />
+      <PixelTrail />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!session ? (
           <>

@@ -36,7 +36,7 @@ export default function AuthScreen({ navigation, route }) {
   }
 
   return (
-    <LinearGradient colors={['#1a0a0f', '#2d1420', '#3f1c2d']} style={styles.container}>
+    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
       <PixelTransition />
       <View style={styles.content}>
         <Text style={styles.title}>{mode === 'signup' ? 'Create Account' : 'Welcome Back'}</Text>
@@ -73,19 +73,19 @@ export default function AuthScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   content: { flex: 1, justifyContent: 'center', padding: 30 },
-  title: { fontSize: 32, fontWeight: 'bold', color: '#fff', marginBottom: 40, textAlign: 'center' },
+  title: { fontSize: 32, fontWeight: 'bold', color: '#2d1b2e', marginBottom: 40, textAlign: 'center' },
   input: {
-    backgroundColor: 'rgba(253,164,175,0.05)',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 16,
-    color: '#fff',
+    color: '#2d1b2e',
     fontSize: 16,
     marginBottom: 15,
     borderWidth: 1,
-    borderColor: 'rgba(244,114,182,0.2)',
+    borderColor: '#ffb3c1',
   },
   button: {
-    backgroundColor: '#e11d48',
+    backgroundColor: '#ff6b8a',
     padding: 16,
     borderRadius: 30,
     alignItems: 'center',
@@ -93,5 +93,5 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
-  switchText: { color: '#fecdd3', textAlign: 'center', fontSize: 14 },
+  switchText: { color: '#8b5a6b', textAlign: 'center', fontSize: 14 },
 });

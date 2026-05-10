@@ -11,13 +11,13 @@ export default function WebStyles() {
         </filter>
       </svg>
       <style type="text/css">{`
-      /* Aurora Background (Pink/Rose Waves) */
+      /* Aurora Background (Baby Pink Waves) */
       @keyframes aurora {
         0% { background-position: 50% 50%, 50% 50%; }
         100% { background-position: 350% 50%, 350% 50%; }
       }
       .aurora-bg {
-        background-image: repeating-linear-gradient(100deg, #1a0a0f 0%, #2d1420 20%, #3f1c2d 40%, #1a0a0f 60%);
+        background-image: repeating-linear-gradient(100deg, #fff0f3 0%, #ffe4e8 20%, #ffffff 40%, #fff0f3 60%);
         background-size: 200vw 200vh;
         animation: aurora 20s linear infinite;
       }
@@ -35,7 +35,7 @@ export default function WebStyles() {
 
       /* Gradient Text */
       .gradient-text {
-        background: linear-gradient(90deg, #fda4af, #fb7185);
+        background: linear-gradient(90deg, #ff6b8a, #ffb3c1);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -51,7 +51,7 @@ export default function WebStyles() {
         position: relative;
         overflow: hidden;
         border-radius: 30px;
-        background: #2d1420;
+        background: #ffffff;
         z-index: 1;
         border: none !important;
       }
@@ -59,7 +59,7 @@ export default function WebStyles() {
         content: '';
         position: absolute;
         top: -50%; left: -50%; width: 200%; height: 200%;
-        background: conic-gradient(transparent, transparent, transparent, #fb7185, #f472b6, transparent);
+        background: conic-gradient(transparent, transparent, transparent, #ffb3c1, #ff6b8a, transparent);
         animation: starBorderRotate 4s linear infinite;
         z-index: -1;
       }
@@ -67,7 +67,7 @@ export default function WebStyles() {
         content: '';
         position: absolute;
         top: 2px; left: 2px; right: 2px; bottom: 2px;
-        background: #1a0a0f;
+        background: #ffffff;
         border-radius: 28px;
         z-index: -1;
       }
@@ -76,14 +76,14 @@ export default function WebStyles() {
       .electric-border {
         position: relative;
         border-radius: 20px;
-        background: #2d1420;
+        background: #ffffff;
         z-index: 1;
       }
       .electric-border::before {
         content: '';
         position: absolute;
         top: -3px; left: -3px; right: -3px; bottom: -3px;
-        background: linear-gradient(45deg, #f472b6, #fda4af, #fb7185, #f472b6);
+        background: linear-gradient(45deg, #ff6b8a, #ffb3c1, #ff6b8a, #ffb3c1);
         background-size: 300%;
         border-radius: 23px;
         z-index: -1;
@@ -100,7 +100,7 @@ export default function WebStyles() {
       .glow-hover { transition: all 0.3s ease; }
       .glow-hover:hover {
         transform: scale(1.05);
-        box-shadow: 0 0 15px rgba(244, 114, 182, 0.6);
+        box-shadow: 0 0 15px rgba(255, 107, 138, 0.6);
       }
 
       /* Sparkles */
@@ -113,7 +113,7 @@ export default function WebStyles() {
         position: absolute;
         animation: floatUpFade 2s ease-in infinite;
         pointer-events: none;
-        color: #fda4af;
+        color: #ffb3c1;
       }
 
       /* Stats Smooth */
@@ -134,7 +134,7 @@ export default function WebStyles() {
         transform: translateX(-50%);
         border-width: 10px 10px 0;
         border-style: solid;
-        border-color: rgba(244, 114, 182, 0.3) transparent transparent transparent;
+        border-color: rgba(255, 107, 138, 0.3) transparent transparent transparent;
         display: block;
         width: 0;
       }
@@ -145,7 +145,7 @@ export default function WebStyles() {
         100% { background-position: 200% center; }
       }
       .shimmer-text {
-        background: linear-gradient(90deg, #fff 0%, #fda4af 50%, #fff 100%);
+        background: linear-gradient(90deg, #2d1b2e 0%, #ff6b8a 50%, #2d1b2e 100%);
         background-size: 200% auto;
         color: transparent !important;
         -webkit-background-clip: text;
@@ -155,15 +155,15 @@ export default function WebStyles() {
 
       /* Glass Morphism */
       .glass-morphism {
-        background: rgba(244, 114, 182, 0.1) !important;
+        background: rgba(255, 255, 255, 0.8) !important;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(244, 114, 182, 0.2) !important;
+        border: 1px solid #ffb3c1 !important;
       }
 
       /* Gradient Bubble */
       .gradient-bubble {
-        background: linear-gradient(135deg, #e11d48, #f472b6) !important;
+        background: linear-gradient(135deg, #ff6b8a, #ffb3c1) !important;
       }
 
       /* Holographic Shimmer */
@@ -179,7 +179,7 @@ export default function WebStyles() {
         content: '';
         position: absolute;
         top: -50%; left: -50%; width: 200%; height: 200%;
-        background: linear-gradient(45deg, transparent 40%, rgba(251, 113, 133, 0.2) 45%, rgba(244, 114, 182, 0.4) 50%, rgba(251, 113, 133, 0.2) 55%, transparent 60%);
+        background: linear-gradient(45deg, transparent 40%, rgba(255, 107, 138, 0.1) 45%, rgba(255, 107, 138, 0.3) 50%, rgba(255, 107, 138, 0.1) 55%, transparent 60%);
         background-size: 200% 200%;
         opacity: 0;
         transition: opacity 0.3s;
@@ -202,7 +202,7 @@ export default function WebStyles() {
         position: absolute;
         border-radius: 50%;
         filter: blur(40px);
-        opacity: 0.2;
+        opacity: 0.4;
         animation: drift 20s infinite ease-in-out;
         z-index: 0;
       }
@@ -223,25 +223,26 @@ export default function WebStyles() {
       }
       .tilt-hover:hover {
         transform: translateY(-5px) scale(1.02) rotateX(5deg) rotateY(-5deg);
+        box-shadow: 0 10px 20px rgba(255, 107, 138, 0.2);
       }
 
       /* Species Glow */
       .species-card-hover { transition: all 0.2s ease; }
       .species-card-hover:hover {
         transform: scale(1.05);
-        background: rgba(244, 114, 182, 0.15);
+        background: #fff0f3;
       }
       .species-selected-glow {
-        box-shadow: 0 0 20px rgba(244, 114, 182, 0.6) !important;
-        border-color: #f472b6 !important;
-        background: rgba(244, 114, 182, 0.2) !important;
+        box-shadow: 0 0 20px rgba(255, 107, 138, 0.3) !important;
+        border-color: #ff6b8a !important;
+        background: #ffe4e8 !important;
       }
 
       /* Ripple Send */
       .ripple-btn {
         position: relative;
         overflow: hidden;
-        box-shadow: 0 0 15px rgba(244, 114, 182, 0.4);
+        box-shadow: 0 0 15px rgba(255, 107, 138, 0.4);
       }
       .ripple-btn::after {
         content: "";
@@ -274,7 +275,7 @@ export default function WebStyles() {
         top: 20px;
         bottom: 20px;
         width: 2px;
-        background: linear-gradient(to bottom, #f472b6, #fb7185);
+        background: linear-gradient(to bottom, #ff6b8a, #ffb3c1);
         opacity: 0.5;
       }
       .timeline-dot {
@@ -284,15 +285,15 @@ export default function WebStyles() {
         width: 12px;
         height: 12px;
         border-radius: 50%;
-        background: #1a0a0f;
-        border: 2px solid #f472b6;
+        background: #ffffff;
+        border: 2px solid #ffb3c1;
         z-index: 2;
         transition: transform 0.3s;
       }
       .tilt-hover:hover .timeline-dot {
         transform: scale(1.5);
-        background: #fb7185;
-        border-color: #fb7185;
+        background: #ff6b8a;
+        border-color: #ff6b8a;
       }
 
       /* =========================================
@@ -315,8 +316,8 @@ export default function WebStyles() {
       }
       .cube div {
         position: absolute; width: 100%; height: 100%;
-        background: rgba(244, 114, 182, 0.1);
-        border: 1px solid rgba(251, 113, 133, 0.3);
+        background: rgba(255, 107, 138, 0.1);
+        border: 1px solid rgba(255, 179, 193, 0.5);
       }
       .cube .front  { transform: translateZ(30px); }
       .cube .back   { transform: rotateY(180deg) translateZ(30px); }
@@ -347,8 +348,8 @@ export default function WebStyles() {
       }
       .letter-glitch:hover {
         animation: glitchAnim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-        color: #fb7185;
-        text-shadow: 2px 0 #f472b6, -2px 0 #e11d48;
+        color: #ffb3c1;
+        text-shadow: 2px 0 #ff6b8a, -2px 0 #ffffff;
       }
 
       /* 3. Magic Rings */
@@ -364,11 +365,11 @@ export default function WebStyles() {
         position: absolute;
         width: 100%; height: 100%;
         border-radius: 50%;
-        border: 2px solid rgba(244, 114, 182, 0.5);
-        border-top: 2px solid #fb7185;
+        border: 2px solid rgba(255, 179, 193, 0.5);
+        border-top: 2px solid #ff6b8a;
       }
       .ring-1 { animation: spinRingX 4s linear infinite; }
-      .ring-2 { animation: spinRingY 5s linear infinite; border-top-color: #e11d48; }
+      .ring-2 { animation: spinRingY 5s linear infinite; border-top-color: #ffb3c1; }
       .ring-3 { animation: spinRingZ 6s linear infinite; width: 120%; height: 120%; top: -10%; left: -10%; }
       
       @keyframes spinRingX { 100% { transform: rotateX(360deg) rotateY(180deg); } }
@@ -395,7 +396,7 @@ export default function WebStyles() {
         z-index: 9999;
       }
       .pixel-cell {
-        background: #1a0a0f;
+        background: #fff0f3;
         transform-origin: center;
         animation: pixelShrink 0.8s cubic-bezier(0.87, 0, 0.13, 1) forwards;
       }
@@ -403,6 +404,21 @@ export default function WebStyles() {
         0% { transform: scale(1.05); border-radius: 0; opacity: 1; }
         50% { border-radius: 50%; opacity: 1; }
         100% { transform: scale(0); opacity: 0; border-radius: 50%; }
+      }
+
+      /* 6. Pixel Trail */
+      .pixel-trail-dot {
+        position: absolute;
+        width: 10px; height: 10px;
+        background-color: #ffb3c1;
+        pointer-events: none;
+        animation: trailFade 0.6s cubic-bezier(0.1, 0.9, 0.1, 1) forwards;
+        z-index: 9999;
+        border-radius: 2px;
+      }
+      @keyframes trailFade {
+        0% { transform: scale(1) translateY(0); opacity: 0.8; }
+        100% { transform: scale(0) translateY(15px) rotate(45deg); opacity: 0; }
       }
     `}</style>
     </>

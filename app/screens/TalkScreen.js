@@ -22,7 +22,7 @@ function AnimatedBubble({ msg }) {
       className={Platform.OS === 'web' ? (isUser ? 'gradient-bubble' : 'glass-morphism') : ''}
       style={[styles.bubble, isUser ? styles.userBubble : styles.petBubble, { opacity: opacityAnim, transform: [{ translateX: slideAnim }] }]}
     >
-      <Text style={styles.bubbleText}>{msg.text}</Text>
+      <Text style={[styles.bubbleText, isUser ? {color: '#fff'} : {color: '#2d1b2e'}]}>{msg.text}</Text>
     </Animated.View>
   );
 }
@@ -56,7 +56,7 @@ export default function TalkScreen({ route, navigation }) {
   }
 
   return (
-    <LinearGradient colors={['#1a0a0f', '#2d1420', '#3f1c2d']} style={styles.container}>
+    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
       <PixelTransition />
       {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.1}} />}
       {Platform.OS === 'web' && (
@@ -114,15 +114,15 @@ export default function TalkScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   header: { flexDirection: 'row', alignItems: 'center', padding: 20, paddingTop: 50, gap: 15 },
-  back: { color: '#e94560', fontSize: 16 },
-  headerTitle: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  back: { color: '#ff6b8a', fontSize: 16 },
+  headerTitle: { color: '#2d1b2e', fontSize: 18, fontWeight: 'bold' },
   messages: { flex: 1 },
   bubble: { maxWidth: '80%', borderRadius: 15, padding: 12, marginBottom: 10 },
-  petBubble: { backgroundColor: '#2d1420', alignSelf: 'flex-start', borderWidth: 1, borderColor: '#f472b640' },
-  userBubble: { backgroundColor: '#e11d48', alignSelf: 'flex-end' },
-  bubbleText: { color: '#fff', fontSize: 15 },
+  petBubble: { backgroundColor: '#ffffff', alignSelf: 'flex-start', borderWidth: 1, borderColor: '#ffb3c1' },
+  userBubble: { backgroundColor: '#ff6b8a', alignSelf: 'flex-end' },
+  bubbleText: { fontSize: 15 },
   inputRow: { flexDirection: 'row', padding: 15, gap: 10 },
-  input: { flex: 1, backgroundColor: '#2d1420', borderRadius: 25, paddingHorizontal: 20, paddingVertical: 12, color: '#fff', borderWidth: 1, borderColor: '#f472b640' },
-  sendBtn: { backgroundColor: '#e11d48', borderRadius: 25, paddingHorizontal: 20, justifyContent: 'center' },
+  input: { flex: 1, backgroundColor: '#ffffff', borderRadius: 25, paddingHorizontal: 20, paddingVertical: 12, color: '#2d1b2e', borderWidth: 1, borderColor: '#ffb3c1' },
+  sendBtn: { backgroundColor: '#ff6b8a', borderRadius: 25, paddingHorizontal: 20, justifyContent: 'center' },
   sendText: { color: '#fff', fontWeight: 'bold' },
 });

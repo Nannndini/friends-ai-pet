@@ -22,10 +22,10 @@ export default function JournalScreen({ route, navigation }) {
   }, [petId]);
 
   const actionEmoji = { feed: '🍖', play: '🎮', sleep: '😴', talk: '💬' };
-  const actionColors = { feed: '#fb7185', play: '#f472b6', sleep: '#fda4af', talk: '#e11d48' };
+  const actionColors = { feed: '#ffb3c1', play: '#ff6b8a', sleep: '#ffb3c1', talk: '#ff6b8a' };
 
   return (
-    <LinearGradient colors={['#1a0a0f', '#2d1420', '#3f1c2d']} style={styles.container}>
+    <LinearGradient colors={['#fff0f3', '#ffe4e8', '#ffffff']} style={styles.container}>
       <PixelTransition />
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -62,13 +62,13 @@ export default function JournalScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   header: { flexDirection: 'row', alignItems: 'center', padding: 20, paddingTop: 50, gap: 15 },
-  back: { color: '#e11d48', fontSize: 16 },
-  headerTitle: { color: '#fff', fontSize: 20, fontWeight: 'bold' },
+  back: { color: '#ff6b8a', fontSize: 16 },
+  headerTitle: { color: '#2d1b2e', fontSize: 20, fontWeight: 'bold' },
   content: { padding: 20 },
-  empty: { color: '#fecdd3', textAlign: 'center', marginTop: 50, fontSize: 16 },
-  entry: { backgroundColor: '#2d1420', borderRadius: 15, padding: 15, marginBottom: 15, borderWidth: 1, borderColor: 'rgba(244,114,182,0.2)' },
-  entryAction: { color: '#fb7185', fontSize: 14, fontWeight: 'bold', marginBottom: 5, textTransform: 'capitalize' },
-  entryMessage: { color: '#fecdd3', fontSize: 13, marginBottom: 3 },
-  entryResponse: { color: '#fff', fontSize: 14, fontStyle: 'italic', marginBottom: 5 },
-  entryTime: { color: '#fecdd3', fontSize: 11 },
+  empty: { color: '#8b5a6b', textAlign: 'center', marginTop: 50, fontSize: 16 },
+  entry: { backgroundColor: '#ffffff', borderRadius: 15, padding: 15, marginBottom: 15, borderWidth: 1, borderColor: '#ffb3c1' },
+  entryAction: { color: '#ff6b8a', fontSize: 14, fontWeight: 'bold', marginBottom: 5, textTransform: 'capitalize' },
+  entryMessage: { color: '#8b5a6b', fontSize: 13, marginBottom: 3 },
+  entryResponse: { color: '#2d1b2e', fontSize: 14, fontStyle: 'italic', marginBottom: 5 },
+  entryTime: { color: '#8b5a6b', fontSize: 11 },
 });
