@@ -17,7 +17,10 @@ function AnimatedBubble({ msg }) {
   }, []);
 
   return (
-    <Animated.View style={[styles.bubble, isUser ? styles.userBubble : styles.petBubble, { opacity: opacityAnim, transform: [{ translateX: slideAnim }] }]}>
+    <Animated.View 
+      className={Platform.OS === 'web' ? (isUser ? 'gradient-bubble' : 'glass-morphism') : ''}
+      style={[styles.bubble, isUser ? styles.userBubble : styles.petBubble, { opacity: opacityAnim, transform: [{ translateX: slideAnim }] }]}
+    >
       <Text style={styles.bubbleText}>{msg.text}</Text>
     </Animated.View>
   );
@@ -52,7 +55,8 @@ export default function TalkScreen({ route, navigation }) {
   }
 
   return (
-    <LinearGradient colors={['#1a1a2e', '#16213e', '#0f3460']} style={styles.container}>
+    <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
+      {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.1}} />}
       {Platform.OS === 'web' && (
         <View style={StyleSheet.absoluteFill} pointerEvents="none">
           {[...Array(6)].map((_, i) => (
@@ -112,11 +116,11 @@ const styles = StyleSheet.create({
   headerTitle: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
   messages: { flex: 1 },
   bubble: { maxWidth: '80%', borderRadius: 15, padding: 12, marginBottom: 10 },
-  petBubble: { backgroundColor: '#ffffff15', alignSelf: 'flex-start' },
-  userBubble: { backgroundColor: '#e94560', alignSelf: 'flex-end' },
+  petBubble: { backgroundColor: '#13131a', alignSelf: 'flex-start', borderWidth: 1, borderColor: '#7c3aed40' },
+  userBubble: { backgroundColor: '#7c3aed', alignSelf: 'flex-end' },
   bubbleText: { color: '#fff', fontSize: 15 },
   inputRow: { flexDirection: 'row', padding: 15, gap: 10 },
-  input: { flex: 1, backgroundColor: '#ffffff15', borderRadius: 25, paddingHorizontal: 20, paddingVertical: 12, color: '#fff', borderWidth: 1, borderColor: '#ffffff20' },
-  sendBtn: { backgroundColor: '#e94560', borderRadius: 25, paddingHorizontal: 20, justifyContent: 'center' },
+  input: { flex: 1, backgroundColor: '#13131a', borderRadius: 25, paddingHorizontal: 20, paddingVertical: 12, color: '#fff', borderWidth: 1, borderColor: '#7c3aed40' },
+  sendBtn: { backgroundColor: '#7c3aed', borderRadius: 25, paddingHorizontal: 20, justifyContent: 'center' },
   sendText: { color: '#fff', fontWeight: 'bold' },
 });

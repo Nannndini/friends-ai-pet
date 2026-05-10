@@ -4,15 +4,15 @@ export default function WebStyles() {
   if (Platform.OS !== 'web') return null;
   return (
     <style type="text/css">{`
-      /* Aurora Background */
+      /* Aurora Background (Purple/Pink Waves) */
       @keyframes aurora {
         0% { background-position: 50% 50%, 50% 50%; }
         100% { background-position: 350% 50%, 350% 50%; }
       }
       .aurora-bg {
-        background-image: repeating-linear-gradient(100deg, #1a1a2e 0%, #16213e 20%, #0f3460 40%, #1a1a2e 60%);
+        background-image: repeating-linear-gradient(100deg, #0a0a0f 0%, #1a0b2e 20%, #2e0854 40%, #0a0a0f 60%);
         background-size: 200vw 200vh;
-        animation: aurora 15s linear infinite;
+        animation: aurora 20s linear infinite;
       }
 
       /* Blur Text Animation */
@@ -26,36 +26,74 @@ export default function WebStyles() {
         opacity: 0;
       }
 
-      /* Glow Hover */
-      .glow-hover { transition: all 0.3s ease; }
-      .glow-hover:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 15px rgba(233, 69, 96, 0.6);
+      /* Gradient Text */
+      .gradient-text {
+        background: linear-gradient(90deg, #a855f7, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
       }
 
-      /* Rainbow Rotating Border */
+      /* Star Border Animation */
+      @keyframes starBorderRotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .star-border {
+        position: relative;
+        overflow: hidden;
+        border-radius: 30px;
+        background: #13131a;
+        z-index: 1;
+        border: none !important;
+      }
+      .star-border::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%; width: 200%; height: 200%;
+        background: conic-gradient(transparent, transparent, transparent, #ec4899, #7c3aed, transparent);
+        animation: starBorderRotate 4s linear infinite;
+        z-index: -1;
+      }
+      .star-border::after {
+        content: '';
+        position: absolute;
+        top: 2px; left: 2px; right: 2px; bottom: 2px;
+        background: #0a0a0f;
+        border-radius: 28px;
+        z-index: -1;
+      }
+
+      /* Electric Border Animation */
+      .electric-border {
+        position: relative;
+        border-radius: 20px;
+        background: #13131a;
+        z-index: 1;
+      }
+      .electric-border::before {
+        content: '';
+        position: absolute;
+        top: -3px; left: -3px; right: -3px; bottom: -3px;
+        background: linear-gradient(45deg, #7c3aed, #a855f7, #ec4899, #7c3aed);
+        background-size: 300%;
+        border-radius: 23px;
+        z-index: -1;
+        animation: rotateGradient 3s linear infinite;
+        opacity: 0.8;
+      }
       @keyframes rotateGradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
       }
-      .rainbow-border-card {
-        position: relative;
-        background: #1a1a2e;
-        border-radius: 20px;
-        z-index: 1;
-        border: none !important;
-      }
-      .rainbow-border-card::before {
-        content: '';
-        position: absolute;
-        top: -4px; left: -4px; right: -4px; bottom: -4px;
-        background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-        background-size: 400%;
-        border-radius: 24px;
-        z-index: -1;
-        animation: rotateGradient 20s linear infinite;
-        opacity: 0.8;
+
+      /* Glow Hover */
+      .glow-hover { transition: all 0.3s ease; }
+      .glow-hover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(124, 58, 237, 0.6);
       }
 
       /* Sparkles */
@@ -68,6 +106,7 @@ export default function WebStyles() {
         position: absolute;
         animation: floatUpFade 2s ease-in infinite;
         pointer-events: none;
+        color: #a855f7;
       }
 
       /* Stats Smooth */
@@ -88,7 +127,7 @@ export default function WebStyles() {
         transform: translateX(-50%);
         border-width: 10px 10px 0;
         border-style: solid;
-        border-color: rgba(233, 69, 96, 0.4) transparent transparent transparent;
+        border-color: rgba(124, 58, 237, 0.3) transparent transparent transparent;
         display: block;
         width: 0;
       }
@@ -99,12 +138,50 @@ export default function WebStyles() {
         100% { background-position: 200% center; }
       }
       .shimmer-text {
-        background: linear-gradient(90deg, #fff 0%, #e94560 50%, #fff 100%);
+        background: linear-gradient(90deg, #fff 0%, #a855f7 50%, #fff 100%);
         background-size: 200% auto;
         color: transparent !important;
         -webkit-background-clip: text;
         background-clip: text;
         animation: shimmer 3s linear infinite;
+      }
+
+      /* Glass Morphism */
+      .glass-morphism {
+        background: rgba(124, 58, 237, 0.1) !important;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(124, 58, 237, 0.2) !important;
+      }
+
+      /* Gradient Bubble */
+      .gradient-bubble {
+        background: linear-gradient(135deg, #7c3aed, #ec4899) !important;
+      }
+
+      /* Holographic Shimmer */
+      @keyframes holoShimmer {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 200% 200%; }
+      }
+      .holographic-shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+      .holographic-shimmer::after {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%; width: 200%; height: 200%;
+        background: linear-gradient(45deg, transparent 40%, rgba(236, 72, 153, 0.2) 45%, rgba(124, 58, 237, 0.4) 50%, rgba(236, 72, 153, 0.2) 55%, transparent 60%);
+        background-size: 200% 200%;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .holographic-shimmer:hover::after {
+        opacity: 1;
+        animation: holoShimmer 2s linear infinite;
       }
 
       /* Floating Background Particles */
@@ -118,7 +195,7 @@ export default function WebStyles() {
         position: absolute;
         border-radius: 50%;
         filter: blur(40px);
-        opacity: 0.3;
+        opacity: 0.2;
         animation: drift 20s infinite ease-in-out;
         z-index: 0;
       }
@@ -139,24 +216,25 @@ export default function WebStyles() {
       }
       .tilt-hover:hover {
         transform: translateY(-5px) scale(1.02) rotateX(5deg) rotateY(-5deg);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 15px rgba(233, 69, 96, 0.4);
       }
 
       /* Species Glow */
       .species-card-hover { transition: all 0.2s ease; }
       .species-card-hover:hover {
         transform: scale(1.05);
-        background: rgba(255,255,255,0.15);
+        background: rgba(124, 58, 237, 0.15);
       }
       .species-selected-glow {
-        box-shadow: 0 0 20px rgba(233, 69, 96, 0.6) !important;
-        border-color: #e94560 !important;
+        box-shadow: 0 0 20px rgba(124, 58, 237, 0.6) !important;
+        border-color: #7c3aed !important;
+        background: rgba(124, 58, 237, 0.2) !important;
       }
 
       /* Ripple Send */
       .ripple-btn {
         position: relative;
         overflow: hidden;
+        box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
       }
       .ripple-btn::after {
         content: "";
@@ -175,6 +253,39 @@ export default function WebStyles() {
       @keyframes ripple {
         0% { transform: scale(0) translate(-50%, -50%); opacity: 0.5; }
         100% { transform: scale(20) translate(-50%, -50%); opacity: 0; }
+      }
+      
+      /* Timeline Line */
+      .timeline-container {
+        position: relative;
+        padding-left: 25px;
+      }
+      .timeline-container::before {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 20px;
+        bottom: 20px;
+        width: 2px;
+        background: linear-gradient(to bottom, #7c3aed, #ec4899);
+        opacity: 0.5;
+      }
+      .timeline-dot {
+        position: absolute;
+        left: -25px;
+        top: 15px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #0a0a0f;
+        border: 2px solid #7c3aed;
+        z-index: 2;
+        transition: transform 0.3s;
+      }
+      .tilt-hover:hover .timeline-dot {
+        transform: scale(1.5);
+        background: #ec4899;
+        border-color: #ec4899;
       }
     `}</style>
   );

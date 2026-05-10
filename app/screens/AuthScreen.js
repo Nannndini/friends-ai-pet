@@ -35,7 +35,7 @@ export default function AuthScreen({ navigation, route }) {
   }
 
   return (
-    <LinearGradient colors={['#1a1a2e', '#16213e', '#0f3460']} style={styles.container}>
+    <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>{mode === 'signup' ? 'Create Account' : 'Welcome Back'}</Text>
         <TextInput
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderColor: '#ffffff20',
   },
   button: {
-    backgroundColor: '#e94560',
+    backgroundColor: '#7c3aed',
     padding: 16,
     borderRadius: 30,
     alignItems: 'center',

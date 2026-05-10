@@ -57,7 +57,7 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
   }
 
   return (
-    <LinearGradient colors={['#1a1a2e', '#16213e', '#0f3460']} style={styles.container}>
+    <LinearGradient colors={['#0a0a0f', '#13131a', '#1e1b4b']} style={styles.container}>
       {Platform.OS === 'web' && <div className="aurora-bg" style={{position:'absolute', top:0, left:0, right:0, bottom:0, opacity: 0.2}} />}
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Create Your Pet 🐾</Text>
@@ -74,7 +74,7 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
           {SPECIES.map((s) => (
             <TouchableOpacity
               key={s.name}
-              className={Platform.OS === 'web' ? 'species-card-hover ' + (species.name === s.name ? 'species-selected-glow' : '') : ''}
+              className={Platform.OS === 'web' ? 'holographic-shimmer species-card-hover ' + (species.name === s.name ? 'species-selected-glow' : '') : ''}
               style={[styles.speciesCard, species.name === s.name && styles.selected]}
               onPress={() => handleSpeciesSelect(s)}
             >
@@ -89,7 +89,7 @@ export default function CreatePetScreen({ navigation, onPetCreated }) {
         {PERSONALITIES.map((p) => (
           <TouchableOpacity
             key={p}
-            className={Platform.OS === 'web' ? 'species-card-hover ' + (personality === p ? 'species-selected-glow' : '') : ''}
+            className={Platform.OS === 'web' ? 'holographic-shimmer species-card-hover ' + (personality === p ? 'species-selected-glow' : '') : ''}
             style={[styles.personalityCard, personality === p && styles.selected]}
             onPress={() => setPersonality(p)}
           >
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   speciesCard: {
-    backgroundColor: '#ffffff10',
+    backgroundColor: '#13131a',
     borderRadius: 12,
     padding: 15,
     alignItems: 'center',
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   speciesEmoji: { fontSize: 32 },
   speciesName: { color: '#fff', fontSize: 12, marginTop: 5 },
   personalityCard: {
-    backgroundColor: '#ffffff10',
+    backgroundColor: '#13131a',
     borderRadius: 12,
     padding: 14,
     marginBottom: 8,
@@ -142,9 +142,9 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   personalityText: { color: '#fff', fontSize: 14 },
-  selected: { borderColor: '#e94560' },
+  selected: { borderColor: '#7c3aed' },
   button: {
-    backgroundColor: '#e94560',
+    backgroundColor: '#7c3aed',
     padding: 16,
     borderRadius: 30,
     alignItems: 'center',
