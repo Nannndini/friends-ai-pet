@@ -1,7 +1,19 @@
+import React, { useMemo } from 'react';
 import { Platform } from 'react-native';
 
 export default function WebStyles() {
   if (Platform.OS !== 'web') return null;
+  const bubbles = useMemo(() => {
+    if (Platform.OS !== 'web') return [];
+    return Array.from({ length: 20 }).map(() => ({
+      left: `${Math.random() * 100}%`,
+      size: 10 + Math.random() * 15,
+      duration: 5 + Math.random() * 10,
+      delay: Math.random() * 5,
+      color: Math.random() > 0.5 ? 'rgba(255, 107, 138, 0.3)' : 'rgba(255, 179, 193, 0.4)'
+    }));
+  }, []);
+
   return (
     <>
       <svg style={{ width: 0, height: 0, position: 'absolute' }}>
@@ -420,7 +432,45 @@ export default function WebStyles() {
         0% { transform: scale(1) translateY(0); opacity: 0.8; }
         100% { transform: scale(0) translateY(15px) rotate(45deg); opacity: 0; }
       }
+      /* 7. Floating Bubbles */
+      .bubbles-container {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .bubble-circle {
+        position: absolute;
+        bottom: -20px;
+        border-radius: 50%;
+        animation: floatUp ease-in infinite forwards;
+      }
+      @keyframes floatUp {
+        0% { transform: translateY(0) scale(0.8); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 0.8; }
+        100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+      }
     `}</style>
+      {Platform.OS === 'web' && (
+        <div className="bubbles-container">
+          {bubbles.map((b, i) => (
+            <div 
+              key={i} 
+              className="bubble-circle" 
+              style={{
+                left: b.left,
+                width: `${b.size}px`,
+                height: `${b.size}px`,
+                animationDuration: `${b.duration}s`,
+                animationDelay: `${b.delay}s`,
+                background: b.color
+              }}
+            />
+          ))}
+        </div>
+      )}
     </>
   );
 }

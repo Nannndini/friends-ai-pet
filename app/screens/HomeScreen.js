@@ -312,7 +312,7 @@ export default function HomeScreen({ navigation }) {
                 <Text style={styles.coparentTitle}>🎉 Friend Added!</Text>
                 <Text style={{color: '#fecdd3', marginBottom: 15, lineHeight: 22}}>
                   Your friend has been added! Share this link with them: <Text style={{color: '#f472b6'}}>{shareLink}</Text>
-                  {'\n\n'}Tell them to sign up with <Text style={{color: '#fff', fontWeight: 'bold'}}>{coparentEmail}</Text> and they'll see your pet!
+                  {'\n\n'}Tell them to sign up with <Text style={{color: '#ff6b8a', fontWeight: 'bold'}}>{coparentEmail}</Text> and they'll see your pet!
                 </Text>
                 <TouchableOpacity style={styles.inviteBtn} onPress={() => { setShowCoparent(false); setShareLink(''); setCoparentEmail(''); }}>
                   <Text style={styles.inviteBtnText}>Close</Text>
@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
   petEmoji: { fontSize: 80 },
   petName: { fontSize: 28, fontWeight: 'bold', color: '#2d1b2e', marginTop: 10 },
   petMeta: { color: '#8b5a6b', fontSize: 14, marginTop: 5 },
-  petPersonality: { color: '#ffb3c1', fontSize: 13, marginTop: 8 },
+  petPersonality: { color: '#ff6b8a', fontSize: 13, marginTop: 8 },
   responseCard: { backgroundColor: '#fff0f3', borderRadius: 15, padding: 15, marginBottom: 15, borderWidth: 1, borderColor: '#ffb3c1' },
   responseText: { color: '#2d1b2e', fontSize: 15, fontStyle: 'italic', textAlign: 'center' },
   statsCard: { backgroundColor: '#ffffff', borderRadius: 15, padding: 15, marginBottom: 15 },
